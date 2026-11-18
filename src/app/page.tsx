@@ -67,7 +67,10 @@ export default function Home() {
           </Link>
 
           {/* Pathway 2: Teacher Hub */}
-          <div className="p-6 rounded-2xl bg-cosmic-900 border border-slate-800 hover:border-nebula-cyan/50 transition-all group flex flex-col justify-between">
+          <Link
+            href="/dashboard"
+            className="p-6 rounded-2xl bg-cosmic-900 border border-slate-800 hover:border-nebula-cyan/50 transition-all group flex flex-col justify-between cursor-pointer"
+          >
             <div>
               <div className="w-12 h-12 rounded-xl bg-nebula-cyan/20 border border-nebula-cyan/30 flex items-center justify-center mb-4 text-nebula-cyan group-hover:scale-105 transition-transform">
                 <LayoutDashboard className="w-6 h-6" />
@@ -80,7 +83,7 @@ export default function Home() {
             <span className="text-xs font-semibold text-nebula-cyan group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
               Open Teacher Hub &rarr;
             </span>
-          </div>
+          </Link>
 
           {/* Pathway 3: Jury Fast-Pass */}
           <div className="p-6 rounded-2xl bg-gradient-to-b from-cosmic-900 to-cosmic-850 border border-star-gold/40 hover:border-star-gold transition-all group flex flex-col justify-between shadow-lg shadow-star-gold/5">
