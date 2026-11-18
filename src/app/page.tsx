@@ -40,19 +40,19 @@ export default function Home() {
 
           {/* Nav actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] font-medium text-success-700 bg-success-50 border border-success-500/20 px-3 py-1.5 rounded-full">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping-soft absolute inline-flex h-full w-full rounded-full bg-success-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-success-500"></span>
+            <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-300 px-3 py-1.5 rounded-full">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
               </span>
               NEP 2020 · DPDP Act Compliant
             </span>
             <Link
               href="/demo"
-              className="btn btn-sm bg-warn-500 text-white hover:bg-warn-700 font-bold shadow-soft"
+              className="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold text-xs shadow-sm flex items-center gap-1.5 transition-all active:scale-95"
             >
-              <Zap className="w-3.5 h-3.5" />
-              Jury Fast-Pass
+              <Zap className="w-3.5 h-3.5 fill-slate-900" />
+              <span>Jury Fast-Pass (30s)</span>
             </Link>
           </div>
         </div>
@@ -104,78 +104,83 @@ export default function Home() {
         </div>
 
         {/* ── 3 Core Pathway Cards ─────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto animate-fade-up-delay-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto animate-fade-up-2">
 
           {/* Card 1 — Student Quest */}
           <Link
             href="/quest"
-            className="group relative flex flex-col bg-canvas rounded-2xl border border-border shadow-card hover:shadow-elevated hover:border-brand-300 transition-all duration-200 ease-spring overflow-hidden"
+            className="group relative flex flex-col bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-500 shadow-md hover:shadow-xl transition-all duration-200 overflow-hidden"
           >
-            {/* Top accent stripe */}
-            <div className="h-1 w-full bg-brand-500" />
+            <div className="h-1.5 w-full bg-indigo-600" />
             <div className="p-6 sm:p-7 flex flex-col flex-1">
-              <div className="w-12 h-12 rounded-xl bg-brand-50 text-brand-500 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-200 ease-spring">
+              <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-200">
                 <Gamepad2 className="w-6 h-6" />
               </div>
               <div className="flex items-center gap-2 mb-2">
-                <h2 className="text-[15px] font-bold text-ink tracking-tight">Student Space Quest</h2>
-                <span className="badge badge-brand">For Kids</span>
+                <h2 className="text-base font-bold text-slate-900 tracking-tight">Student Space Quest</h2>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                  Classes 1–8
+                </span>
               </div>
-              <p className="text-[13px] text-ink-2 leading-relaxed mb-6 flex-1">
+              <p className="text-[13px] text-slate-600 leading-relaxed mb-6 flex-1">
                 Interactive space missions: microphone speech reading, handwriting star tracing, and 400 ms flash comet counting.
               </p>
-              <div className="flex items-center justify-between text-[12px] font-semibold text-brand-600 group-hover:translate-x-0.5 transition-transform">
+              <span className="w-full py-2.5 px-4 rounded-xl bg-indigo-600 group-hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-between shadow-sm transition-colors">
                 <span>Start 15-Min Screening Quest</span>
-                <ArrowRight className="w-4 h-4" />
-              </div>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </span>
             </div>
           </Link>
 
           {/* Card 2 — Teacher Hub */}
           <Link
             href="/dashboard"
-            className="group relative flex flex-col bg-canvas rounded-2xl border border-border shadow-card hover:shadow-elevated hover:border-success-500/50 transition-all duration-200 ease-spring overflow-hidden"
+            className="group relative flex flex-col bg-white rounded-2xl border-2 border-slate-200 hover:border-emerald-500 shadow-md hover:shadow-xl transition-all duration-200 overflow-hidden"
           >
-            <div className="h-1 w-full bg-success-500" />
+            <div className="h-1.5 w-full bg-emerald-600" />
             <div className="p-6 sm:p-7 flex flex-col flex-1">
-              <div className="w-12 h-12 rounded-xl bg-success-50 text-success-500 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-200 ease-spring">
+              <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-200">
                 <LayoutDashboard className="w-6 h-6" />
               </div>
               <div className="flex items-center gap-2 mb-2">
-                <h2 className="text-[15px] font-bold text-ink tracking-tight">Teacher Diagnostic Hub</h2>
-                <span className="badge badge-success">Educators</span>
+                <h2 className="text-base font-bold text-slate-900 tracking-tight">Teacher Diagnostic Hub</h2>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  Educators
+                </span>
               </div>
-              <p className="text-[13px] text-ink-2 leading-relaxed mb-6 flex-1">
+              <p className="text-[13px] text-slate-600 leading-relaxed mb-6 flex-1">
                 Class rosters, DSM-5 percentile gauges, printable NEP 2020 bilingual IEPs, and PRASUNEX ERP sync.
               </p>
-              <div className="flex items-center justify-between text-[12px] font-semibold text-success-700 group-hover:translate-x-0.5 transition-transform">
-                <span>Open Class Roster & IEPs</span>
-                <ArrowRight className="w-4 h-4" />
-              </div>
+              <span className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 group-hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-between shadow-sm transition-colors">
+                <span>Open Class Roster &amp; IEPs</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </span>
             </div>
           </Link>
 
           {/* Card 3 — Jury Fast-Pass */}
           <Link
             href="/demo"
-            className="group relative flex flex-col bg-canvas rounded-2xl border border-warn-500/40 shadow-card hover:shadow-elevated hover:border-warn-500 transition-all duration-200 ease-spring overflow-hidden"
+            className="group relative flex flex-col bg-white rounded-2xl border-2 border-amber-300 hover:border-amber-500 shadow-md hover:shadow-xl transition-all duration-200 overflow-hidden"
           >
-            <div className="h-1 w-full bg-warn-500" />
+            <div className="h-1.5 w-full bg-amber-400" />
             <div className="p-6 sm:p-7 flex flex-col flex-1">
-              <div className="w-12 h-12 rounded-xl bg-warn-50 text-warn-700 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-200 ease-spring">
-                <Zap className="w-6 h-6" />
+              <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-200">
+                <Zap className="w-6 h-6 fill-amber-500" />
               </div>
               <div className="flex items-center gap-2 mb-2">
-                <h2 className="text-[15px] font-bold text-ink tracking-tight">⚡ Jury Fast-Pass</h2>
-                <span className="badge badge-warn">30 SEC</span>
+                <h2 className="text-base font-bold text-slate-900 tracking-tight">⚡ Jury Fast-Pass</h2>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-900">
+                  30 SEC DEMO
+                </span>
               </div>
-              <p className="text-[13px] text-ink-2 leading-relaxed mb-6 flex-1">
+              <p className="text-[13px] text-slate-600 leading-relaxed mb-6 flex-1">
                 Pre-calibrated profiles letting hackathon judges verify scoring, Gemini IEP, and ERP webhook in 30 seconds.
               </p>
-              <div className="flex items-center justify-between text-[12px] font-semibold text-warn-700 group-hover:translate-x-0.5 transition-transform">
+              <span className="w-full py-2.5 px-4 rounded-xl bg-amber-400 group-hover:bg-amber-500 text-slate-900 font-bold text-xs flex items-center justify-between shadow-sm transition-colors">
                 <span>Launch Evaluation Console</span>
-                <ArrowRight className="w-4 h-4" />
-              </div>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </span>
             </div>
           </Link>
         </div>

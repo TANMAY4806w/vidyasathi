@@ -212,15 +212,15 @@ export default function JuryDemoPage() {
         <div className="flex items-center gap-2">
           <Link
             href="/dashboard"
-            className="px-3.5 py-1.5 rounded-xl border border-edu-300 bg-white hover:bg-edu-50 text-xs font-bold text-edu-700 transition-colors"
+            className="px-3.5 py-1.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 transition-colors shadow-sm"
           >
             Teacher Hub
           </Link>
           <Link
             href="/quest"
-            className="px-3.5 py-1.5 rounded-xl bg-edu-primary hover:bg-edu-primaryHover text-xs font-bold text-white transition-colors shadow-soft"
+            className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-xs font-bold text-white transition-colors shadow-sm flex items-center gap-1.5"
           >
-            Child Quest
+            <span>Child Quest</span>
           </Link>
         </div>
       </header>
@@ -228,10 +228,10 @@ export default function JuryDemoPage() {
       {/* Profile Selector Cards */}
       <section className="my-6">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-edu-600">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-600">
             Select a Calibrated Student Profile:
           </h2>
-          <span className="text-[11px] text-edu-500 font-medium">Pre-loaded telemetry from real screening trials</span>
+          <span className="text-[11px] text-slate-500 font-medium">Pre-loaded telemetry from real screening trials</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -248,16 +248,16 @@ export default function JuryDemoPage() {
                 }}
                 className={`p-5 rounded-2xl border-2 transition-all cursor-pointer ${
                   isSelected
-                    ? "bg-white border-edu-primary shadow-elevated"
-                    : "bg-white border-edu-200 hover:border-edu-300 shadow-soft"
+                    ? "bg-indigo-50/50 border-indigo-600 ring-2 ring-indigo-500/30 shadow-lg scale-[1.01]"
+                    : "bg-white border-slate-200 hover:border-slate-300 shadow-sm"
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <h3 className="text-sm font-bold text-edu-900">{profile.name}</h3>
-                  <span className="text-xs text-edu-500 font-medium">Class {profile.grade} (Age {profile.age})</span>
+                  <h3 className="text-sm font-bold text-slate-900">{profile.name}</h3>
+                  <span className="text-xs text-slate-500 font-medium">Class {profile.grade} (Age {profile.age})</span>
                 </div>
-                <p className="text-xs text-edu-600 mt-2 leading-relaxed">{profile.clinicalDescription}</p>
-                <div className="mt-3 pt-3 border-t border-edu-100 flex items-center justify-between text-[11px] text-edu-500 font-mono">
+                <p className="text-xs text-slate-600 mt-2 leading-relaxed">{profile.clinicalDescription}</p>
+                <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-mono">
                   <span>VOL: {profile.rawTelemetry.dyslexia.avgVocalOnsetLatencyMs}ms</span>
                   <span>Jitter: {profile.rawTelemetry.dysgraphia.avgKinematicJitterScore}</span>
                   <span>Subitize: {profile.rawTelemetry.dyscalculia.subitizingAvgLatencyMs}ms</span>
@@ -272,65 +272,65 @@ export default function JuryDemoPage() {
       <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 my-2">
         {/* Left Column: Interactive Action Controls (5 cols) */}
         <section className="lg:col-span-5 space-y-4">
-          <div className="p-6 rounded-3xl bg-white border-2 border-edu-200 shadow-card space-y-4">
-            <h3 className="text-sm font-bold text-edu-900 flex items-center gap-2">
-              <Activity className="w-4 h-4 text-edu-primary" />
+          <div className="p-6 rounded-3xl bg-white border-2 border-slate-200 shadow-md space-y-4">
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-indigo-600" />
               Live Evaluation Actions
             </h3>
 
             {/* Action 1: Instant Scoring */}
-            <div className="p-4 rounded-2xl bg-edu-50 border border-edu-200 space-y-2">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-edu-900">Action 1: DSM-5 Scoring Engine</span>
-                <span className="text-[10px] text-edu-emerald font-bold">&lt; 10ms Latency</span>
+                <span className="text-xs font-bold text-slate-900">Action 1: DSM-5 Scoring Engine</span>
+                <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">&lt; 10ms Latency</span>
               </div>
-              <p className="text-xs text-edu-600">
+              <p className="text-xs text-slate-600">
                 Transforms speech acoustics, canvas kinematics, and subitizing reaction times into normalized percentiles.
               </p>
               <button
                 onClick={handleRunScoring}
                 disabled={loadingScore}
-                className="w-full py-2.5 rounded-2xl bg-edu-primary hover:bg-edu-primaryHover text-white text-xs font-bold disabled:opacity-40 transition-all flex items-center justify-center gap-2 shadow-soft"
+                className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs font-bold disabled:opacity-40 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
               >
-                {loadingScore ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
+                {loadingScore ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4 fill-white" />}
                 <span>Run Instant DSM-5 Scoring</span>
               </button>
             </div>
 
             {/* Action 2: Gemini 1.5 Flash IEP */}
-            <div className="p-4 rounded-2xl bg-edu-50 border border-edu-200 space-y-2">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-edu-900">Action 2: Gemini 1.5 Flash Bilingual IEP</span>
-                <span className="text-[10px] text-amber-800 font-bold bg-edu-amberLight px-2 py-0.5 rounded-full">NEP 2020</span>
+                <span className="text-xs font-bold text-slate-900">Action 2: Gemini 1.5 Flash Bilingual IEP</span>
+                <span className="text-[10px] text-amber-800 font-bold bg-amber-100 px-2 py-0.5 rounded-full">NEP 2020</span>
               </div>
-              <p className="text-xs text-edu-600">
+              <p className="text-xs text-slate-600">
                 Synthesizes a structured 5-step IEP with parent summaries in English and Hindi.
               </p>
               <button
                 onClick={handleGenerateIep}
                 disabled={!scoringResult || loadingIep}
-                className="w-full py-2.5 rounded-2xl bg-edu-amber hover:bg-amber-400 text-edu-900 text-xs font-bold disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 shadow-soft"
+                className="w-full py-3 rounded-xl bg-amber-400 hover:bg-amber-500 active:scale-95 text-slate-900 text-xs font-bold disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
               >
-                {loadingIep ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4 text-amber-700" />}
+                {loadingIep ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4 text-slate-900" />}
                 <span>Generate Gemini 1.5 Flash IEP</span>
               </button>
             </div>
 
             {/* Action 3: PRASUNEX Sync */}
-            <div className="p-4 rounded-2xl bg-edu-50 border border-edu-200 space-y-2">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-edu-900">Action 3: PRASUNEX Education OS Sync</span>
-                <span className="text-[10px] text-edu-sky font-bold">HMAC SHA256</span>
+                <span className="text-xs font-bold text-slate-900">Action 3: PRASUNEX Education OS Sync</span>
+                <span className="text-[10px] text-sky-700 font-bold bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-full">HMAC SHA256</span>
               </div>
-              <p className="text-xs text-edu-600">
+              <p className="text-xs text-slate-600">
                 Simulates real-time webhook push into PRASUNEX Education OS &amp; Prerana AI Core.
               </p>
               <button
                 onClick={handleSyncPrasunex}
                 disabled={loadingSync}
-                className="w-full py-2.5 rounded-2xl border border-edu-300 bg-white hover:bg-edu-100 text-edu-800 text-xs font-bold disabled:opacity-30 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl border-2 border-slate-300 bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold disabled:opacity-30 transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
               >
-                {loadingSync ? <RefreshCw className="w-4 h-4 animate-spin text-edu-primary" /> : <RefreshCw className="w-4 h-4" />}
+                {loadingSync ? <RefreshCw className="w-4 h-4 animate-spin text-indigo-600" /> : <RefreshCw className="w-4 h-4" />}
                 <span>{prasunexSyncRef ? `Synced: ${prasunexSyncRef}` : "Sync to PRASUNEX Education OS"}</span>
               </button>
             </div>
@@ -359,77 +359,77 @@ export default function JuryDemoPage() {
 
               {/* 4 Gauges */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3.5 rounded-2xl bg-edu-50 border border-edu-200">
+                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-edu-600 font-medium">1. Dyslexia</span>
-                    <strong className="text-edu-900 font-mono">{scoringResult.indices.dyslexia.percentile}th %ile</strong>
+                    <span className="text-slate-600 font-medium">1. Dyslexia</span>
+                    <strong className="text-slate-900 font-mono font-bold">{scoringResult.indices.dyslexia.percentile}th %ile</strong>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-edu-200 overflow-hidden">
+                  <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden shadow-inner">
                     <div
                       style={{ width: `${scoringResult.indices.dyslexia.percentile}%` }}
-                      className={`h-full ${scoringResult.indices.dyslexia.percentile > 75 ? "bg-edu-rose" : scoringResult.indices.dyslexia.percentile >= 40 ? "bg-edu-amber" : "bg-edu-emerald"}`}
+                      className={`h-full transition-all duration-500 ${scoringResult.indices.dyslexia.percentile > 75 ? "bg-rose-500" : scoringResult.indices.dyslexia.percentile >= 40 ? "bg-amber-400" : "bg-emerald-500"}`}
                     />
                   </div>
-                  <span className="text-[10px] text-edu-500 mt-1 block truncate">
+                  <span className="text-[10px] text-slate-500 mt-1 block truncate">
                     {scoringResult.indices.dyslexia.primaryIndicator}
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-edu-50 border border-edu-200">
+                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-edu-600 font-medium">2. Dysgraphia</span>
-                    <strong className="text-edu-900 font-mono">{scoringResult.indices.dysgraphia.percentile}th %ile</strong>
+                    <span className="text-slate-600 font-medium">2. Dysgraphia</span>
+                    <strong className="text-slate-900 font-mono font-bold">{scoringResult.indices.dysgraphia.percentile}th %ile</strong>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-edu-200 overflow-hidden">
+                  <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden shadow-inner">
                     <div
                       style={{ width: `${scoringResult.indices.dysgraphia.percentile}%` }}
-                      className={`h-full ${scoringResult.indices.dysgraphia.percentile > 75 ? "bg-edu-rose" : scoringResult.indices.dysgraphia.percentile >= 40 ? "bg-edu-amber" : "bg-edu-emerald"}`}
+                      className={`h-full transition-all duration-500 ${scoringResult.indices.dysgraphia.percentile > 75 ? "bg-rose-500" : scoringResult.indices.dysgraphia.percentile >= 40 ? "bg-amber-400" : "bg-emerald-500"}`}
                     />
                   </div>
-                  <span className="text-[10px] text-edu-500 mt-1 block truncate">
+                  <span className="text-[10px] text-slate-500 mt-1 block truncate">
                     {scoringResult.indices.dysgraphia.primaryIndicator}
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-edu-50 border border-edu-200">
+                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-edu-600 font-medium">3. Dyscalculia</span>
-                    <strong className="text-edu-900 font-mono">{scoringResult.indices.dyscalculia.percentile}th %ile</strong>
+                    <span className="text-slate-600 font-medium">3. Dyscalculia</span>
+                    <strong className="text-slate-900 font-mono font-bold">{scoringResult.indices.dyscalculia.percentile}th %ile</strong>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-edu-200 overflow-hidden">
+                  <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden shadow-inner">
                     <div
                       style={{ width: `${scoringResult.indices.dyscalculia.percentile}%` }}
-                      className={`h-full ${scoringResult.indices.dyscalculia.percentile > 75 ? "bg-edu-rose" : scoringResult.indices.dyscalculia.percentile >= 40 ? "bg-edu-amber" : "bg-edu-emerald"}`}
+                      className={`h-full transition-all duration-500 ${scoringResult.indices.dyscalculia.percentile > 75 ? "bg-rose-500" : scoringResult.indices.dyscalculia.percentile >= 40 ? "bg-amber-400" : "bg-emerald-500"}`}
                     />
                   </div>
-                  <span className="text-[10px] text-edu-500 mt-1 block truncate">
+                  <span className="text-[10px] text-slate-500 mt-1 block truncate">
                     {scoringResult.indices.dyscalculia.primaryIndicator}
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-edu-50 border border-edu-200">
+                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-edu-600 font-medium">4. ADHD Focus</span>
-                    <strong className="text-edu-900 font-mono">{scoringResult.indices.adhd.percentile}th %ile</strong>
+                    <span className="text-slate-600 font-medium">4. ADHD Focus</span>
+                    <strong className="text-slate-900 font-mono font-bold">{scoringResult.indices.adhd.percentile}th %ile</strong>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-edu-200 overflow-hidden">
+                  <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden shadow-inner">
                     <div
                       style={{ width: `${scoringResult.indices.adhd.percentile}%` }}
-                      className={`h-full ${scoringResult.indices.adhd.percentile > 75 ? "bg-edu-rose" : scoringResult.indices.adhd.percentile >= 40 ? "bg-edu-amber" : "bg-edu-emerald"}`}
+                      className={`h-full transition-all duration-500 ${scoringResult.indices.adhd.percentile > 75 ? "bg-rose-500" : scoringResult.indices.adhd.percentile >= 40 ? "bg-amber-400" : "bg-emerald-500"}`}
                     />
                   </div>
-                  <span className="text-[10px] text-edu-500 mt-1 block truncate">
+                  <span className="text-[10px] text-slate-500 mt-1 block truncate">
                     {scoringResult.indices.adhd.primaryIndicator}
                   </span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="p-8 rounded-3xl bg-white border-2 border-edu-200 shadow-soft text-center space-y-3">
-              <Zap className="w-8 h-8 text-edu-amber mx-auto animate-bounce" />
-              <h4 className="text-sm font-bold text-edu-900">Jury Fast-Pass Console Ready</h4>
-              <p className="text-xs text-edu-600 max-w-sm mx-auto">
-                Click <strong>&quot;Run Instant DSM-5 Scoring&quot;</strong> on the left to execute the live percentile engine.
+            <div className="p-8 rounded-3xl bg-white border-2 border-slate-200 shadow-sm text-center space-y-3">
+              <Zap className="w-8 h-8 text-amber-500 mx-auto animate-bounce" />
+              <h4 className="text-sm font-bold text-slate-900">Jury Fast-Pass Console Ready</h4>
+              <p className="text-xs text-slate-600 max-w-sm mx-auto">
+                Click <strong className="text-indigo-600">&quot;Run Instant DSM-5 Scoring&quot;</strong> in Action 1 to execute the live percentile engine.
               </p>
             </div>
           )}

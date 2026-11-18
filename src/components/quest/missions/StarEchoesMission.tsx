@@ -246,9 +246,9 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
       )}
 
       {/* Controls & Action Buttons */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-edu-100">
-        <div className="flex items-center gap-2 text-xs text-edu-500">
-          <ShieldCheck className="w-4 h-4 text-edu-emerald" />
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200">
+        <div className="flex items-center gap-2 text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-full">
+          <ShieldCheck className="w-4 h-4 text-emerald-600" />
           <span>RAM-Only Audio: Voice is analyzed live and never saved.</span>
         </div>
 
@@ -256,7 +256,7 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
           {!isListening ? (
             <button
               onClick={handleStartRecording}
-              className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-edu-primary hover:bg-edu-primaryHover text-white text-sm font-bold shadow-soft transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
             >
               <Mic className="w-4 h-4" />
               <span>Tap to Read Word</span>
@@ -264,7 +264,7 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
           ) : (
             <button
               onClick={handleStopRecording}
-              className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-edu-rose hover:bg-rose-700 text-white text-sm font-bold shadow-soft transition-all flex items-center justify-center gap-2 animate-pulse"
+              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-rose-600 hover:bg-rose-700 active:scale-95 text-white text-sm font-bold shadow-md transition-all flex items-center justify-center gap-2 animate-pulse"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>Done Reading! Next &rarr;</span>
@@ -274,7 +274,7 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
           {onSkip && (
             <button
               onClick={onSkip}
-              className="px-3 py-2 text-xs text-edu-400 hover:text-edu-600 transition-colors"
+              className="px-3 py-2 text-xs text-slate-400 hover:text-slate-600 transition-colors font-medium"
             >
               Skip
             </button>

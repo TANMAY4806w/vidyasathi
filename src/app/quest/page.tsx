@@ -165,12 +165,15 @@ export default function QuestPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <button
                 onClick={() => { setCurrentStep("MISSION_1"); setMission1Data(null); setMission2Data(null); setMission3Data(null); }}
-                className="btn btn-secondary btn-md"
+                className="px-5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition-colors"
               >
                 Replay Quest
               </button>
-              <Link href="/dashboard" className="btn btn-primary btn-md">
-                <span>View IEP & Diagnostics</span>
+              <Link
+                href="/dashboard"
+                className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md flex items-center gap-2 transition-all active:scale-95"
+              >
+                <span>View IEP &amp; Diagnostics</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

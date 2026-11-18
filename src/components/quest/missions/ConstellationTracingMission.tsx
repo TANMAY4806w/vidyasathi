@@ -342,7 +342,7 @@ export default function ConstellationTracingMission({
           <button
             onClick={handleClear}
             disabled={strokes.length === 0}
-            className="px-4 py-2.5 rounded-xl border border-edu-200 text-xs font-bold text-edu-600 hover:text-edu-900 hover:bg-edu-50 disabled:opacity-40 transition-colors flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:text-slate-900 hover:bg-slate-100 disabled:opacity-40 transition-colors flex items-center gap-1.5"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Clear</span>
@@ -351,7 +351,7 @@ export default function ConstellationTracingMission({
           <button
             onClick={handleSubmitTracing}
             disabled={strokes.length === 0}
-            className="px-6 py-2.5 rounded-2xl bg-edu-primary hover:bg-edu-primaryHover text-white text-xs font-bold shadow-soft disabled:opacity-40 transition-all flex items-center gap-2"
+            className="px-6 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs font-bold shadow-md disabled:bg-slate-300 disabled:cursor-not-allowed transition-all flex items-center gap-2"
           >
             <CheckCircle2 className="w-4 h-4" />
             <span>Confirm Tracing &rarr;</span>
