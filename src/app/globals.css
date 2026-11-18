@@ -71,39 +71,71 @@ body {
 /* ── Component: Professional badge ─────────────────────── */
 @layer components {
   .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold leading-none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1;
   }
-  .badge-brand   { @apply bg-brand-100 text-brand-700; }
-  .badge-success { @apply bg-success-50 text-success-700; }
-  .badge-warn    { @apply bg-warn-50    text-warn-700;    }
-  .badge-danger  { @apply bg-danger-50  text-danger-700;  }
-  .badge-sky     { @apply bg-sky-50     text-sky-700;     }
+  .badge-brand   { background: #EEF1FF; color: #2730BF; }
+  .badge-success { background: #ECFDF5; color: #047857; }
+  .badge-warn    { background: #FFFBEB; color: #B45309; }
+  .badge-danger  { background: #FFF1F3; color: #BE123C; }
+  .badge-sky     { background: #F0F9FF; color: #0369A1; }
 
   /* Cards */
   .card {
-    @apply bg-canvas rounded-2xl border border-border shadow-card;
+    background: #FFFFFF;
+    border-radius: 1rem;
+    border: 1px solid #E8E8EF;
+    box-shadow: 0 4px 16px -2px rgba(26,26,46,0.07), 0 2px 6px -1px rgba(26,26,46,0.04);
   }
 
-  /* Buttons */
+  /* Button base */
   .btn {
-    @apply inline-flex items-center justify-center gap-2
-           rounded-xl font-semibold text-sm
-           transition-all duration-150 ease-spring
-           focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
-           active:scale-[0.97] select-none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 150ms cubic-bezier(0.16,1,0.3,1);
+    user-select: none;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
   }
+  .btn:active { transform: scale(0.97); }
+  .btn:focus-visible {
+    outline: 2.5px solid #4353FF;
+    outline-offset: 2px;
+  }
+
   .btn-primary {
-    @apply btn bg-brand-500 text-white hover:bg-brand-600
-           shadow-soft hover:shadow-elevated;
+    background: #4353FF;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px -1px rgba(26,26,46,0.06);
   }
+  .btn-primary:hover { background: #3340E0; }
+
   .btn-secondary {
-    @apply btn bg-canvas text-ink-2 border border-border
-           hover:border-brand-300 hover:text-brand-600;
+    background: #FFFFFF;
+    color: #3D3D56;
+    border: 1px solid #E8E8EF;
   }
+  .btn-secondary:hover { border-color: #9BA8FC; color: #3340E0; }
+
   .btn-ghost {
-    @apply btn text-ink-3 hover:bg-edu-100 hover:text-ink;
+    background: transparent;
+    color: #7E7E9A;
   }
-  .btn-sm { @apply px-3.5 py-2 text-xs; }
-  .btn-md { @apply px-5 py-2.5 text-sm; }
-  .btn-lg { @apply px-6 py-3 text-base; }
+  .btn-ghost:hover { background: #EFEFED; color: #1A1A2E; }
+
+  .btn-sm  { padding: 0.5rem 0.875rem; font-size: 0.75rem; }
+  .btn-md  { padding: 0.625rem 1.25rem; font-size: 0.875rem; }
+  .btn-lg  { padding: 0.75rem 1.5rem; font-size: 1rem; }
 }
