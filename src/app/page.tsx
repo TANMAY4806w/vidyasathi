@@ -86,7 +86,10 @@ export default function Home() {
           </Link>
 
           {/* Pathway 3: Jury Fast-Pass */}
-          <div className="p-6 rounded-2xl bg-gradient-to-b from-cosmic-900 to-cosmic-850 border border-star-gold/40 hover:border-star-gold transition-all group flex flex-col justify-between shadow-lg shadow-star-gold/5">
+          <Link
+            href="/demo"
+            className="p-6 rounded-2xl bg-gradient-to-b from-cosmic-900 to-cosmic-850 border border-star-gold/40 hover:border-star-gold transition-all group flex flex-col justify-between shadow-lg shadow-star-gold/5 cursor-pointer"
+          >
             <div>
               <div className="w-12 h-12 rounded-xl bg-star-gold/20 border border-star-gold/30 flex items-center justify-center mb-4 text-star-gold group-hover:scale-105 transition-transform">
                 <Zap className="w-6 h-6" />
@@ -102,7 +105,7 @@ export default function Home() {
             <span className="text-xs font-semibold text-star-gold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
               Launch Jury Mode &rarr;
             </span>
-          </div>
+          </Link>
         </div>
       </section>
 
