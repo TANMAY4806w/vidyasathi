@@ -48,7 +48,10 @@ export default function Home() {
         {/* Action Pathways */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto text-left">
           {/* Pathway 1: Child Quest */}
-          <div className="p-6 rounded-2xl bg-cosmic-900 border border-slate-800 hover:border-nebula-purple/50 transition-all group flex flex-col justify-between">
+          <Link
+            href="/quest"
+            className="p-6 rounded-2xl bg-cosmic-900 border border-slate-800 hover:border-nebula-purple/50 transition-all group flex flex-col justify-between cursor-pointer"
+          >
             <div>
               <div className="w-12 h-12 rounded-xl bg-nebula-purple/20 border border-nebula-purple/30 flex items-center justify-center mb-4 text-nebula-purple group-hover:scale-105 transition-transform">
                 <Gamepad2 className="w-6 h-6" />
@@ -61,7 +64,7 @@ export default function Home() {
             <span className="text-xs font-semibold text-nebula-purple group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
               Start Student Quest &rarr;
             </span>
-          </div>
+          </Link>
 
           {/* Pathway 2: Teacher Hub */}
           <div className="p-6 rounded-2xl bg-cosmic-900 border border-slate-800 hover:border-nebula-cyan/50 transition-all group flex flex-col justify-between">
