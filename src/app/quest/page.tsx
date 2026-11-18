@@ -12,7 +12,7 @@ import {
   Zap,
   Brain,
   ArrowRight,
-  BookOpen,
+  Mic,
 } from "lucide-react";
 import StarEchoesMission, { Mission1Telemetry } from "@/components/quest/missions/StarEchoesMission";
 import ConstellationTracingMission, { Mission2Telemetry } from "@/components/quest/missions/ConstellationTracingMission";
@@ -20,6 +20,12 @@ import CometCollectorMission, { Mission3Telemetry } from "@/components/quest/mis
 import { AdhdTelemetryTracker, AdhdInteractionMetrics } from "@/lib/telemetry/adhdTracker";
 
 type QuestStep = "MISSION_1" | "MISSION_2" | "MISSION_3" | "COMPLETED";
+
+const STEPS = [
+  { key: "MISSION_1", label: "Speech",     icon: Mic,      color: "brand"   },
+  { key: "MISSION_2", label: "Tracing",    icon: PenTool,  color: "sky"     },
+  { key: "MISSION_3", label: "Subitizing", icon: Zap,      color: "warn"    },
+] as const;
 
 export default function QuestPage() {
   const [currentStep, setCurrentStep] = useState<QuestStep>("MISSION_1");
@@ -34,13 +40,8 @@ export default function QuestPage() {
     adhdTrackerRef.current = new AdhdTelemetryTracker();
   }, []);
 
-  const handleRecordClick = () => {
-    adhdTrackerRef.current?.recordClick();
-  };
-
-  const handleRecordLatency = (latencyMs: number) => {
-    adhdTrackerRef.current?.recordReactionTime(latencyMs);
-  };
+  const handleRecordClick = () => { adhdTrackerRef.current?.recordClick(); };
+  const handleRecordLatency = (latencyMs: number) => { adhdTrackerRef.current?.recordReactionTime(latencyMs); };
 
   const handleMission1Complete = (telemetry: Mission1Telemetry) => {
     setMission1Data(telemetry);
@@ -56,215 +57,120 @@ export default function QuestPage() {
   const handleMission3Complete = (telemetry: Mission3Telemetry) => {
     setMission3Data(telemetry);
     handleRecordLatency(telemetry.subitizingAvgLatencyMs);
-
     const finalAdhd = adhdTrackerRef.current
       ? adhdTrackerRef.current.getMetrics()
-      : {
-          impulsiveRapidClickCount: 1,
-          reactionTimeVarianceMs: 240,
-          idleDwellOver5sCount: 0,
-          totalSessionDurationMs: 65000,
-        };
+      : { impulsiveRapidClickCount: 1, reactionTimeVarianceMs: 240, idleDwellOver5sCount: 0, totalSessionDurationMs: 65000 };
     setAdhdData(finalAdhd);
     setCurrentStep("COMPLETED");
   };
 
+  const stepIndex = currentStep === "MISSION_1" ? 0 : currentStep === "MISSION_2" ? 1 : currentStep === "MISSION_3" ? 2 : 3;
+
   return (
     <div
       onClick={handleRecordClick}
-      className="min-h-screen bg-edu-50 text-edu-900 p-4 sm:p-8 flex flex-col justify-between max-w-5xl mx-auto selection:bg-edu-primaryLight selection:text-edu-primary"
+      className="min-h-screen bg-surface text-ink flex flex-col max-w-5xl mx-auto px-4 sm:px-6 py-5 gap-6"
     >
-      {/* Top Header */}
-      <header className="bg-white border border-edu-200 rounded-2xl px-5 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-soft">
+      {/* ── Quest Header ───────────────────────────────────── */}
+      <header className="bg-canvas border border-border rounded-2xl px-5 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-soft animate-fade-in">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs font-bold text-edu-600 hover:text-edu-primary transition-colors"
+          className="inline-flex items-center gap-2 text-[13px] font-semibold text-ink-3 hover:text-ink transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Exit to Hub</span>
+          Exit to Hub
         </Link>
 
-        {/* Step Indicators */}
-        <div className="flex items-center gap-2 text-xs font-bold">
-          {/* Mission 1 */}
-          <div
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all ${
-              currentStep === "MISSION_1"
-                ? "bg-edu-primaryLight text-edu-primary border border-edu-primary/30"
-                : mission1Data
-                ? "bg-edu-emeraldLight text-edu-emerald border border-edu-emerald/30"
-                : "text-edu-400"
-            }`}
-          >
-            {mission1Data ? <CheckCircle className="w-3.5 h-3.5" /> : <Sparkles className="w-3.5 h-3.5" />}
-            <span>1. Speech</span>
-          </div>
+        {/* Step Progress */}
+        <div className="flex items-center gap-1.5">
+          {STEPS.map((step, i) => {
+            const done = (step.key === "MISSION_1" && mission1Data) || (step.key === "MISSION_2" && mission2Data) || (step.key === "MISSION_3" && mission3Data);
+            const active = i === stepIndex;
+            const Icon = done ? CheckCircle : step.icon;
 
-          <span className="text-edu-300">•</span>
-
-          {/* Mission 2 */}
-          <div
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all ${
-              currentStep === "MISSION_2"
-                ? "bg-edu-skyLight text-edu-sky border border-edu-sky/30"
-                : mission2Data
-                ? "bg-edu-emeraldLight text-edu-emerald border border-edu-emerald/30"
-                : "text-edu-400"
-            }`}
-          >
-            {mission2Data ? <CheckCircle className="w-3.5 h-3.5" /> : <PenTool className="w-3.5 h-3.5" />}
-            <span>2. Tracing</span>
-          </div>
-
-          <span className="text-edu-300">•</span>
-
-          {/* Mission 3 */}
-          <div
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all ${
-              currentStep === "MISSION_3"
-                ? "bg-edu-amberLight text-amber-800 border border-edu-amber/30"
-                : mission3Data
-                ? "bg-edu-emeraldLight text-edu-emerald border border-edu-emerald/30"
-                : "text-edu-400"
-            }`}
-          >
-            {mission3Data ? <CheckCircle className="w-3.5 h-3.5" /> : <Zap className="w-3.5 h-3.5" />}
-            <span>3. Subitizing</span>
-          </div>
+            return (
+              <React.Fragment key={step.key}>
+                <div className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] font-semibold transition-all duration-200 ${
+                  done    ? "bg-success-50 text-success-700 border border-success-500/30"
+                  : active ? "bg-brand-50 text-brand-600 border border-brand-300 shadow-xs"
+                  :          "text-ink-3 border border-transparent"
+                }`}>
+                  <Icon className="w-3.5 h-3.5" />
+                  {step.label}
+                </div>
+                {i < STEPS.length - 1 && (
+                  <div className={`w-6 h-px ${i < stepIndex ? "bg-success-500" : "bg-border"}`} />
+                )}
+              </React.Fragment>
+            );
+          })}
         </div>
 
-        <div className="text-xs text-edu-500 font-medium">
-          Student ID: <span className="font-bold text-edu-900">ASTRO-042</span>
+        <div className="text-[12px] text-ink-3 font-medium tabular-nums">
+          Student ID: <span className="font-bold text-ink">ASTRO-042</span>
         </div>
       </header>
 
-      {/* Main Quest Arena */}
-      <main className="my-auto py-8">
-        {currentStep === "MISSION_1" && (
-          <StarEchoesMission onComplete={handleMission1Complete} />
-        )}
-
+      {/* ── Mission Arena ──────────────────────────────────── */}
+      <main className="flex-1 flex items-center justify-center py-4 animate-fade-in">
+        {currentStep === "MISSION_1" && <StarEchoesMission onComplete={handleMission1Complete} />}
         {currentStep === "MISSION_2" && (
-          <ConstellationTracingMission
-            onComplete={handleMission2Complete}
-            onSkip={() => setCurrentStep("MISSION_3")}
-          />
+          <ConstellationTracingMission onComplete={handleMission2Complete} onSkip={() => setCurrentStep("MISSION_3")} />
         )}
-
         {currentStep === "MISSION_3" && (
-          <CometCollectorMission
-            onComplete={handleMission3Complete}
-            onRecordClick={handleRecordClick}
-            onRecordLatency={handleRecordLatency}
-          />
+          <CometCollectorMission onComplete={handleMission3Complete} onRecordClick={handleRecordClick} onRecordLatency={handleRecordLatency} />
         )}
 
+        {/* ── Completion Card ─────────────────────────────── */}
         {currentStep === "COMPLETED" && mission1Data && mission2Data && mission3Data && adhdData && (
-          /* Comprehensive 4-Vector Telemetry Summary Card */
-          <div className="w-full max-w-4xl mx-auto p-8 sm:p-10 bg-white border-2 border-edu-200 rounded-3xl shadow-card text-center space-y-6">
-            <div className="w-16 h-16 rounded-2xl bg-edu-emeraldLight text-edu-emerald flex items-center justify-center mx-auto shadow-soft animate-bounce">
+          <div className="w-full max-w-4xl bg-canvas border border-border rounded-3xl shadow-card p-8 sm:p-10 text-center space-y-8 animate-scale-in">
+            {/* Trophy */}
+            <div className="w-16 h-16 rounded-2xl bg-success-50 text-success-500 flex items-center justify-center mx-auto shadow-success-glow animate-bounce-once">
               <Award className="w-8 h-8" />
             </div>
 
             <div>
-              <h2 className="text-2xl sm:text-3xl font-black text-edu-900">
-                Full Space Quest Completed! ⭐
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+                Space Quest Complete! ⭐
               </h2>
-              <p className="text-sm text-edu-600 mt-1">
-                All 4 multi-modal behavioral vectors successfully captured on device.
+              <p className="text-[13px] text-ink-2 mt-2">
+                All 4 multi-modal behavioral vectors captured on-device.
               </p>
             </div>
 
             {/* 4-Vector Telemetry Matrix */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
-              {/* Vector 1: Dyslexia */}
-              <div className="p-4 rounded-2xl bg-edu-50 border border-edu-primary/20">
-                <div className="flex items-center gap-1.5 mb-2 text-edu-primary text-xs font-bold">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>1. Dyslexia</span>
-                </div>
-                <div className="space-y-1 text-xs">
-                  <div className="text-edu-500 font-medium">Vocal Latency:</div>
-                  <div className="text-xl font-black text-edu-900 font-mono">
-                    {mission1Data.avgVocalOnsetLatencyMs} ms
+              {[
+                { label: "Dyslexia", icon: <Sparkles className="w-4 h-4" />, color: "text-brand-500 bg-brand-50 border-brand-200",
+                  metric: `${mission1Data.avgVocalOnsetLatencyMs} ms`, sub: `Pauses: ${mission1Data.totalPauses} · Acc: ${mission1Data.avgPhonemeAccuracy}%` },
+                { label: "Dysgraphia", icon: <PenTool className="w-4 h-4" />, color: "text-sky-500 bg-sky-50 border-sky-200",
+                  metric: `${mission2Data.avgKinematicJitterScore} / 1.0`, sub: `Pen-Lifts: ${mission2Data.totalPenLifts} · Rev: ${mission2Data.reversalTendencyScore}%` },
+                { label: "Dyscalculia", icon: <Zap className="w-4 h-4" />, color: "text-warn-500 bg-warn-50 border-warn-200",
+                  metric: `${mission3Data.subitizingAvgLatencyMs} ms`, sub: `Accuracy: ${mission3Data.subitizingAccuracyPercent}% · 400ms flash` },
+                { label: "ADHD Focus", icon: <Brain className="w-4 h-4" />, color: "text-danger-500 bg-danger-50 border-danger-200",
+                  metric: `${adhdData.reactionTimeVarianceMs} ms`, sub: `Rapid Taps: ${adhdData.impulsiveRapidClickCount} · Idle: ${adhdData.idleDwellOver5sCount}` },
+              ].map((v) => (
+                <div key={v.label} className={`p-4 rounded-2xl border ${v.color}`}>
+                  <div className={`flex items-center gap-1.5 mb-3 font-semibold text-[12px] ${v.color.split(" ")[0]}`}>
+                    {v.icon}
+                    {v.label}
                   </div>
-                  <div className="text-[11px] text-edu-500">
-                    Pauses: {mission1Data.totalPauses} | Acc: {mission1Data.avgPhonemeAccuracy}%
-                  </div>
+                  <div className="text-xl font-extrabold text-ink font-mono tabular-nums">{v.metric}</div>
+                  <div className="text-[11px] text-ink-3 mt-1">{v.sub}</div>
                 </div>
-              </div>
-
-              {/* Vector 2: Dysgraphia */}
-              <div className="p-4 rounded-2xl bg-edu-50 border border-edu-sky/20">
-                <div className="flex items-center gap-1.5 mb-2 text-edu-sky text-xs font-bold">
-                  <PenTool className="w-3.5 h-3.5" />
-                  <span>2. Dysgraphia</span>
-                </div>
-                <div className="space-y-1 text-xs">
-                  <div className="text-edu-500 font-medium">Kinematic Jitter:</div>
-                  <div className="text-xl font-black text-edu-900 font-mono">
-                    {mission2Data.avgKinematicJitterScore} / 1.0
-                  </div>
-                  <div className="text-[11px] text-edu-500">
-                    Pen-Lifts: {mission2Data.totalPenLifts} | Rev: {mission2Data.reversalTendencyScore}%
-                  </div>
-                </div>
-              </div>
-
-              {/* Vector 3: Dyscalculia */}
-              <div className="p-4 rounded-2xl bg-edu-50 border border-edu-amber/30">
-                <div className="flex items-center gap-1.5 mb-2 text-amber-700 text-xs font-bold">
-                  <Zap className="w-3.5 h-3.5 text-amber-600" />
-                  <span>3. Dyscalculia</span>
-                </div>
-                <div className="space-y-1 text-xs">
-                  <div className="text-edu-500 font-medium">Subitizing Latency:</div>
-                  <div className="text-xl font-black text-edu-900 font-mono">
-                    {mission3Data.subitizingAvgLatencyMs} ms
-                  </div>
-                  <div className="text-[11px] text-edu-500">
-                    Accuracy: {mission3Data.subitizingAccuracyPercent}% | 400ms flash
-                  </div>
-                </div>
-              </div>
-
-              {/* Vector 4: ADHD */}
-              <div className="p-4 rounded-2xl bg-edu-50 border border-edu-rose/20">
-                <div className="flex items-center gap-1.5 mb-2 text-edu-rose text-xs font-bold">
-                  <Brain className="w-3.5 h-3.5" />
-                  <span>4. ADHD Focus</span>
-                </div>
-                <div className="space-y-1 text-xs">
-                  <div className="text-edu-500 font-medium">Latency Variance (σ):</div>
-                  <div className="text-xl font-black text-edu-900 font-mono">
-                    {adhdData.reactionTimeVarianceMs} ms
-                  </div>
-                  <div className="text-[11px] text-edu-500">
-                    Rapid Taps: {adhdData.impulsiveRapidClickCount} | Idle: {adhdData.idleDwellOver5sCount}
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* Action CTA */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 border-t border-edu-100">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <button
-                onClick={() => {
-                  setCurrentStep("MISSION_1");
-                  setMission1Data(null);
-                  setMission2Data(null);
-                  setMission3Data(null);
-                }}
-                className="px-4 py-2.5 rounded-xl border border-edu-300 text-xs font-bold text-edu-700 hover:bg-edu-50 transition-colors"
+                onClick={() => { setCurrentStep("MISSION_1"); setMission1Data(null); setMission2Data(null); setMission3Data(null); }}
+                className="btn btn-secondary btn-md"
               >
                 Replay Quest
               </button>
-
-              <Link
-                href="/dashboard"
-                className="px-6 py-2.5 rounded-2xl bg-edu-primary hover:bg-edu-primaryHover text-white text-xs font-bold shadow-soft transition-all flex items-center gap-2"
-              >
-                <span>View Classroom Diagnostics &amp; IEP</span>
+              <Link href="/dashboard" className="btn btn-primary btn-md">
+                <span>View IEP & Diagnostics</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -272,11 +178,12 @@ export default function QuestPage() {
         )}
       </main>
 
-      {/* Safety Compliance Footer */}
-      <footer className="py-4 border-t border-edu-200 text-center text-xs text-edu-500 flex items-center justify-center gap-2">
-        <Shield className="w-4 h-4 text-edu-emerald" />
-        <span>DPDP Act 2023: Audio and handwriting processed purely in RAM. Zero raw media is saved.</span>
+      {/* ── Safety Footer ──────────────────────────────────── */}
+      <footer className="py-3 border-t border-border text-center text-[12px] text-ink-3 flex items-center justify-center gap-2">
+        <Shield className="w-3.5 h-3.5 text-success-500" />
+        DPDP Act 2023: Audio & handwriting processed in RAM only. Zero raw media saved.
       </footer>
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -128,7 +128,7 @@ export default function DashboardPage() {
     switch (tier) {
       case "HIGH_ATTENTION_REQUIRED":
         return (
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-50 text-edu-rose border border-rose-200">
+          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-50 text-danger-500 border border-rose-200">
             High Attention
           </span>
         );
@@ -140,7 +140,7 @@ export default function DashboardPage() {
         );
       default:
         return (
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-edu-emerald border border-emerald-200">
+          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-success-700 border border-emerald-200">
             Typical Range
           </span>
         );
@@ -148,34 +148,34 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-edu-50 text-edu-900 p-4 sm:p-8 flex flex-col justify-between max-w-7xl mx-auto selection:bg-edu-primaryLight selection:text-edu-primary">
+    <div className="min-h-screen bg-surface text-ink p-4 sm:p-8 flex flex-col justify-between max-w-7xl mx-auto">
       {/* Top Bar */}
-      <header className="bg-white border border-edu-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-soft">
+      <header className="bg-canvas border border-border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-card">
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="p-2 rounded-xl bg-edu-50 border border-edu-200 hover:bg-edu-100 transition-colors"
+            className="p-2 rounded-xl bg-surface border border-border hover:bg-edu-100 transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 text-edu-600" />
+            <ArrowLeft className="w-4 h-4 text-ink-2" />
           </Link>
           <div>
-            <h1 className="text-xl font-bold text-edu-900 flex items-center gap-2">
+            <h1 className="text-xl font-bold text-ink flex items-center gap-2">
               Teacher &amp; Clinical Diagnostic Hub
-              <span className="text-xs font-semibold text-edu-primary bg-edu-primaryLight px-2.5 py-0.5 rounded-full border border-edu-primary/20">
+              <span className="text-xs font-semibold text-brand-500 bg-brand-50 px-2.5 py-0.5 rounded-full border border-brand-300/20">
                 PRASUNEX Education OS
               </span>
             </h1>
-            <p className="text-xs text-edu-500 font-medium">Class 3–5 Elementary Cohort • Delhi Demonstration Unit</p>
+            <p className="text-xs text-ink-3 font-medium">Class 3–5 Elementary Cohort • Delhi Demonstration Unit</p>
           </div>
         </div>
 
         {/* Aggregate Stats */}
         <div className="flex items-center gap-2 sm:gap-3 text-xs">
-          <div className="px-3 py-1.5 rounded-xl bg-edu-50 border border-edu-200">
-            <span className="text-edu-500">Screened: </span>
-            <strong className="text-edu-900 font-bold">4 Students</strong>
+          <div className="px-3 py-1.5 rounded-xl bg-surface border border-border">
+            <span className="text-ink-3">Screened: </span>
+            <strong className="text-ink font-bold">4 Students</strong>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-edu-rose font-bold">
+          <div className="px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-danger-500 font-bold">
             <span>High: 1</span>
           </div>
           <div className="px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 font-bold">
@@ -189,8 +189,8 @@ export default function DashboardPage() {
         {/* Left Column: Student Roster (7 Cols) */}
         <section className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-edu-900 flex items-center gap-2">
-              <Users className="w-4 h-4 text-edu-primary" />
+            <h2 className="text-sm font-bold text-ink flex items-center gap-2">
+              <Users className="w-4 h-4 text-brand-500" />
               Classroom Screening Roster
             </h2>
 
@@ -202,8 +202,8 @@ export default function DashboardPage() {
                   onClick={() => setFilterTier(tier)}
                   className={`px-3 py-1 rounded-xl font-medium transition-colors ${
                     filterTier === tier
-                      ? "bg-edu-primary text-white font-bold shadow-soft"
-                      : "bg-white border border-edu-200 text-edu-600 hover:bg-edu-50"
+                      ? "bg-brand-500 text-white font-bold shadow-card"
+                      : "bg-white border border-border text-ink-2 hover:bg-surface"
                   }`}
                 >
                   {tier === "ALL" ? "All" : tier === "HIGH_ATTENTION_REQUIRED" ? "High" : tier === "MODERATE_WATCHLIST" ? "Watch" : "Typical"}
@@ -224,18 +224,18 @@ export default function DashboardPage() {
                   onClick={() => setSelectedStudent(student)}
                   className={`p-5 rounded-2xl border-2 transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
                     isSelected
-                      ? "bg-white border-edu-primary shadow-elevated"
-                      : "bg-white border-edu-200 hover:border-edu-300 shadow-soft"
+                      ? "bg-white border-brand-300 shadow-elevated"
+                      : "bg-white border-border hover:border-border-strong shadow-card"
                   }`}
                 >
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-sm font-bold text-edu-900">{student.name}</h3>
-                      <span className="text-xs text-edu-500">• Class {student.grade} (Age {student.age})</span>
+                      <h3 className="text-sm font-bold text-ink">{student.name}</h3>
+                      <span className="text-xs text-ink-3">• Class {student.grade} (Age {student.age})</span>
                       {getTierBadge(student.compositeTier)}
                     </div>
-                    <p className="text-xs text-edu-600">
-                      Primary Indicator: <strong className="text-edu-900 font-semibold">{student.highestRisk}</strong>
+                    <p className="text-xs text-ink-2">
+                      Primary Indicator: <strong className="text-ink font-semibold">{student.highestRisk}</strong>
                     </p>
                     <span className="text-[11px] text-edu-400 font-medium mt-1 block">
                       Screened: {student.screenedAt}
@@ -251,11 +251,11 @@ export default function DashboardPage() {
                       disabled={syncingId === student.id}
                       className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
                         ref
-                          ? "bg-edu-emeraldLight text-edu-emerald border border-edu-emerald/30"
-                          : "bg-edu-50 hover:bg-edu-100 text-edu-700 border border-edu-200"
+                          ? "bg-success-50 text-success-700 border border-success-500/30"
+                          : "bg-surface hover:bg-edu-100 text-ink-2 border border-border"
                       }`}
                     >
-                      <RefreshCw className={`w-3.5 h-3.5 ${syncingId === student.id ? "animate-spin text-edu-primary" : ""}`} />
+                      <RefreshCw className={`w-3.5 h-3.5 ${syncingId === student.id ? "animate-spin text-brand-500" : ""}`} />
                       <span>{ref ? `Synced: ${ref}` : "Sync ERP"}</span>
                     </button>
                   </div>
@@ -267,29 +267,29 @@ export default function DashboardPage() {
 
         {/* Right Column: Diagnostic Inspection & IEP Action Plan (5 Cols) */}
         {selectedStudent && (
-          <section className="lg:col-span-5 p-6 rounded-3xl bg-white border-2 border-edu-200 shadow-card space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-edu-100">
+          <section className="lg:col-span-5 p-6 rounded-3xl bg-white border-2 border-border shadow-card space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-border">
               <div>
-                <span className="text-[10px] text-edu-500 uppercase tracking-wider font-bold">Diagnostic Profile</span>
-                <h3 className="text-lg font-bold text-edu-900">{selectedStudent.name}</h3>
+                <span className="text-[10px] text-ink-3 uppercase tracking-wider font-bold">Diagnostic Profile</span>
+                <h3 className="text-lg font-bold text-ink">{selectedStudent.name}</h3>
               </div>
               {getTierBadge(selectedStudent.compositeTier)}
             </div>
 
             {/* Percentile Gauges */}
             <div className="space-y-3.5">
-              <h4 className="text-xs font-bold text-edu-700 uppercase tracking-wider">DSM-5 Standardized Percentiles:</h4>
+              <h4 className="text-xs font-bold text-ink-2 uppercase tracking-wider">DSM-5 Standardized Percentiles:</h4>
 
               {/* Dyslexia Bar */}
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-edu-600 font-medium">Dyslexia (Speech Vocal Latency)</span>
-                  <strong className="text-edu-900 font-mono">{selectedStudent.indices.dyslexia}th %ile</strong>
+                  <span className="text-ink-2 font-medium">Dyslexia (Speech Vocal Latency)</span>
+                  <strong className="text-ink font-mono">{selectedStudent.indices.dyslexia}th %ile</strong>
                 </div>
                 <div className="w-full h-2 rounded-full bg-edu-100 overflow-hidden">
                   <div
                     style={{ width: `${selectedStudent.indices.dyslexia}%` }}
-                    className={`h-full ${selectedStudent.indices.dyslexia > 75 ? "bg-edu-rose" : selectedStudent.indices.dyslexia >= 40 ? "bg-edu-amber" : "bg-edu-emerald"}`}
+                    className={`h-full ${selectedStudent.indices.dyslexia > 75 ? "bg-edu-rose" : selectedStudent.indices.dyslexia >= 40 ? "bg-edu-amber" : "bg-success-500"}`}
                   />
                 </div>
               </div>
@@ -297,13 +297,13 @@ export default function DashboardPage() {
               {/* Dysgraphia Bar */}
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-edu-600 font-medium">Dysgraphia (Canvas Kinematic Jitter)</span>
-                  <strong className="text-edu-900 font-mono">{selectedStudent.indices.dysgraphia}th %ile</strong>
+                  <span className="text-ink-2 font-medium">Dysgraphia (Canvas Kinematic Jitter)</span>
+                  <strong className="text-ink font-mono">{selectedStudent.indices.dysgraphia}th %ile</strong>
                 </div>
                 <div className="w-full h-2 rounded-full bg-edu-100 overflow-hidden">
                   <div
                     style={{ width: `${selectedStudent.indices.dysgraphia}%` }}
-                    className={`h-full ${selectedStudent.indices.dysgraphia > 75 ? "bg-edu-rose" : selectedStudent.indices.dysgraphia >= 40 ? "bg-edu-amber" : "bg-edu-emerald"}`}
+                    className={`h-full ${selectedStudent.indices.dysgraphia > 75 ? "bg-edu-rose" : selectedStudent.indices.dysgraphia >= 40 ? "bg-edu-amber" : "bg-success-500"}`}
                   />
                 </div>
               </div>
@@ -311,13 +311,13 @@ export default function DashboardPage() {
               {/* Dyscalculia Bar */}
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-edu-600 font-medium">Dyscalculia (400ms Subitizing Delay)</span>
-                  <strong className="text-edu-900 font-mono">{selectedStudent.indices.dyscalculia}th %ile</strong>
+                  <span className="text-ink-2 font-medium">Dyscalculia (400ms Subitizing Delay)</span>
+                  <strong className="text-ink font-mono">{selectedStudent.indices.dyscalculia}th %ile</strong>
                 </div>
                 <div className="w-full h-2 rounded-full bg-edu-100 overflow-hidden">
                   <div
                     style={{ width: `${selectedStudent.indices.dyscalculia}%` }}
-                    className={`h-full ${selectedStudent.indices.dyscalculia > 75 ? "bg-edu-rose" : selectedStudent.indices.dyscalculia >= 40 ? "bg-edu-amber" : "bg-edu-emerald"}`}
+                    className={`h-full ${selectedStudent.indices.dyscalculia > 75 ? "bg-edu-rose" : selectedStudent.indices.dyscalculia >= 40 ? "bg-edu-amber" : "bg-success-500"}`}
                   />
                 </div>
               </div>
@@ -325,35 +325,35 @@ export default function DashboardPage() {
               {/* ADHD Bar */}
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-edu-600 font-medium">ADHD (Reaction Time Variance σ)</span>
-                  <strong className="text-edu-900 font-mono">{selectedStudent.indices.adhd}th %ile</strong>
+                  <span className="text-ink-2 font-medium">ADHD (Reaction Time Variance σ)</span>
+                  <strong className="text-ink font-mono">{selectedStudent.indices.adhd}th %ile</strong>
                 </div>
                 <div className="w-full h-2 rounded-full bg-edu-100 overflow-hidden">
                   <div
                     style={{ width: `${selectedStudent.indices.adhd}%` }}
-                    className={`h-full ${selectedStudent.indices.adhd > 75 ? "bg-edu-rose" : selectedStudent.indices.adhd >= 40 ? "bg-edu-amber" : "bg-edu-emerald"}`}
+                    className={`h-full ${selectedStudent.indices.adhd > 75 ? "bg-edu-rose" : selectedStudent.indices.adhd >= 40 ? "bg-edu-amber" : "bg-success-500"}`}
                   />
                 </div>
               </div>
             </div>
 
             {/* IEP Action Card */}
-            <div className="p-4 rounded-2xl bg-edu-50 border border-edu-200 space-y-3">
+            <div className="p-4 rounded-2xl bg-surface border border-border space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-edu-900 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-edu-primary" />
+                <span className="text-xs font-bold text-ink flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-brand-500" />
                   Gemini 1.5 Flash Bilingual IEP
                 </span>
-                <span className="text-[10px] text-edu-emerald font-bold bg-white px-2 py-0.5 rounded-full border border-edu-emerald/30">
+                <span className="text-[10px] text-success-700 font-bold bg-white px-2 py-0.5 rounded-full border border-success-500/30">
                   NEP 2020
                 </span>
               </div>
-              <p className="text-xs text-edu-600">
+              <p className="text-xs text-ink-2">
                 Actionable bilingual accommodations, 4-week structured exercises, and review timeline ready for teacher download.
               </p>
               <button
                 onClick={() => setShowIepModal(true)}
-                className="w-full py-2.5 rounded-2xl bg-edu-primary hover:bg-edu-primaryHover text-white text-xs font-bold transition-all shadow-soft flex items-center justify-center gap-2"
+                className="w-full py-2.5 rounded-2xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold transition-all shadow-card flex items-center justify-center gap-2"
               >
                 <FileText className="w-4 h-4" />
                 <span>View Full IEP Report Card</span>
@@ -366,13 +366,13 @@ export default function DashboardPage() {
       {/* IEP Modal */}
       {showIepModal && selectedStudent && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 bg-white border border-edu-200 rounded-3xl shadow-card space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-edu-100">
+          <div className="w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 bg-white border border-border rounded-3xl shadow-card space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-border">
               <div>
-                <span className="text-xs font-bold text-edu-primary uppercase tracking-wider">
+                <span className="text-xs font-bold text-brand-500 uppercase tracking-wider">
                   NEP 2020 Inclusive Education Document
                 </span>
-                <h3 className="text-xl font-bold text-edu-900 mt-0.5">
+                <h3 className="text-xl font-bold text-ink mt-0.5">
                   Individualized Education Program: {selectedStudent.name}
                 </h3>
               </div>
@@ -382,13 +382,13 @@ export default function DashboardPage() {
                 <div className="flex items-center bg-edu-100 p-1 rounded-xl text-xs font-bold">
                   <button
                     onClick={() => setIepLanguage("en")}
-                    className={`px-3 py-1 rounded-lg transition-colors ${iepLanguage === "en" ? "bg-white text-edu-primary shadow-soft" : "text-edu-600"}`}
+                    className={`px-3 py-1 rounded-lg transition-colors ${iepLanguage === "en" ? "bg-white text-brand-500 shadow-card" : "text-ink-2"}`}
                   >
                     English
                   </button>
                   <button
                     onClick={() => setIepLanguage("hi")}
-                    className={`px-3 py-1 rounded-lg transition-colors ${iepLanguage === "hi" ? "bg-white text-edu-primary shadow-soft" : "text-edu-600"}`}
+                    className={`px-3 py-1 rounded-lg transition-colors ${iepLanguage === "hi" ? "bg-white text-brand-500 shadow-card" : "text-ink-2"}`}
                   >
                     हिंदी
                   </button>
@@ -396,7 +396,7 @@ export default function DashboardPage() {
 
                 <button
                   onClick={() => setShowIepModal(false)}
-                  className="px-3 py-1.5 rounded-xl bg-edu-100 hover:bg-edu-200 text-xs font-bold text-edu-700"
+                  className="px-3 py-1.5 rounded-xl bg-edu-100 hover:bg-edu-200 text-xs font-bold text-ink-2"
                 >
                   ✕ Close
                 </button>
@@ -404,8 +404,8 @@ export default function DashboardPage() {
             </div>
 
             {/* Parent Summary */}
-            <div className="p-4 rounded-2xl bg-edu-50 border border-edu-200">
-              <h4 className="text-xs font-bold text-edu-primary uppercase tracking-wider mb-2">
+            <div className="p-4 rounded-2xl bg-surface border border-border">
+              <h4 className="text-xs font-bold text-brand-500 uppercase tracking-wider mb-2">
                 {iepLanguage === "en" ? "Parent Summary & Strengths" : "माता-पिता के लिए विवरण एवं क्षमताएं"}
               </h4>
               <p className="text-xs sm:text-sm text-edu-800 leading-relaxed font-medium">
@@ -417,37 +417,37 @@ export default function DashboardPage() {
 
             {/* Classroom Accommodations (Zero Cost) */}
             <div>
-              <h4 className="text-xs font-bold text-edu-900 uppercase tracking-wider mb-3">
+              <h4 className="text-xs font-bold text-ink uppercase tracking-wider mb-3">
                 Teacher Classroom Accommodations (100% Zero-Cost)
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div className="p-3.5 rounded-xl bg-edu-50 border border-edu-200">
-                  <strong className="text-edu-primary block mb-1">Reading &amp; Font Support:</strong>
-                  <span className="text-edu-700">Use sans-serif fonts with 1.5x line spacing on off-white paper.</span>
+                <div className="p-3.5 rounded-xl bg-surface border border-border">
+                  <strong className="text-brand-500 block mb-1">Reading &amp; Font Support:</strong>
+                  <span className="text-ink-2">Use sans-serif fonts with 1.5x line spacing on off-white paper.</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-edu-50 border border-edu-200">
-                  <strong className="text-edu-primary block mb-1">Examination Flexibility:</strong>
-                  <span className="text-edu-700">Grant 15 minutes extra time per hour and allow oral answer checks.</span>
+                <div className="p-3.5 rounded-xl bg-surface border border-border">
+                  <strong className="text-brand-500 block mb-1">Examination Flexibility:</strong>
+                  <span className="text-ink-2">Grant 15 minutes extra time per hour and allow oral answer checks.</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-edu-50 border border-edu-200">
-                  <strong className="text-edu-primary block mb-1">Classroom Seating:</strong>
-                  <span className="text-edu-700">Position in front rows near teacher to minimize visual distractions.</span>
+                <div className="p-3.5 rounded-xl bg-surface border border-border">
+                  <strong className="text-brand-500 block mb-1">Classroom Seating:</strong>
+                  <span className="text-ink-2">Position in front rows near teacher to minimize visual distractions.</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-edu-50 border border-edu-200">
-                  <strong className="text-edu-primary block mb-1">Writing &amp; Motor Support:</strong>
-                  <span className="text-edu-700">Allow ergonomic pencil grips and reduce repetitive blackboard copying.</span>
+                <div className="p-3.5 rounded-xl bg-surface border border-border">
+                  <strong className="text-brand-500 block mb-1">Writing &amp; Motor Support:</strong>
+                  <span className="text-ink-2">Allow ergonomic pencil grips and reduce repetitive blackboard copying.</span>
                 </div>
               </div>
             </div>
 
             {/* Print / Action Buttons */}
-            <div className="flex items-center justify-between pt-4 border-t border-edu-100">
-              <span className="text-xs text-edu-500 font-medium">
+            <div className="flex items-center justify-between pt-4 border-t border-border">
+              <span className="text-xs text-ink-3 font-medium">
                 PRASUNEX Education OS • Student Profile Document
               </span>
               <button
                 onClick={() => window.print()}
-                className="px-4 py-2 rounded-xl bg-edu-primary hover:bg-edu-primaryHover text-white text-xs font-bold flex items-center gap-2 shadow-soft"
+                className="px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold flex items-center gap-2 shadow-card"
               >
                 <Printer className="w-4 h-4" />
                 <span>Print / Save PDF</span>
@@ -458,15 +458,16 @@ export default function DashboardPage() {
       )}
 
       {/* Footer */}
-      <footer className="pt-6 border-t border-edu-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-edu-500">
+      <footer className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-3">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-edu-emerald" />
+          <ShieldCheck className="w-4 h-4 text-success-700" />
           <span>DPDP Act 2023 Compliant • Native Integration with PRASUNEX Education OS</span>
         </div>
-        <Link href="/quest" className="text-edu-primary font-bold hover:underline">
+        <Link href="/quest" className="text-brand-500 font-bold hover:underline">
           Launch New Student Quest Assessment &rarr;
         </Link>
       </footer>
     </div>
   );
 }
+
