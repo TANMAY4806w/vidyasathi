@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Sparkles, Zap, Award, CheckCircle2, ShieldCheck, Timer } from "lucide-react";
+import { Sparkles, Zap, Timer, ShieldCheck } from "lucide-react";
 
 interface SubitizingTrial {
   id: string;
   count: number;
-  positions: { top: number; left: number }[]; // percentage coordinates
+  positions: { top: number; left: number }[];
 }
 
 const SUBITIZING_TRIALS: SubitizingTrial[] = [
@@ -64,20 +64,18 @@ export default function CometCollectorMission({
   const [trialIndex, setTrialIndex] = useState<number>(0);
   const [trialResults, setTrialResults] = useState<{ count: number; selected: number; latencyMs: number }[]>([]);
   const [flashStartTime, setFlashStartTime] = useState<number>(0);
-  const [magnitudeError, setMagnitudeError] = useState<boolean>(false);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const currentTrial = SUBITIZING_TRIALS[trialIndex];
 
-  // Starts the 400ms flash sequence
   const startFlash = () => {
     onRecordClick?.();
     setPhase("FLASH");
     const start = performance.now();
     setFlashStartTime(start);
 
-    // Canonical subitizing flash duration: 400ms
+    // Canonical subitizing flash: 400ms
     timerRef.current = setTimeout(() => {
       setPhase("INPUT");
     }, 400);
@@ -108,7 +106,6 @@ export default function CometCollectorMission({
       setTrialIndex((prev) => prev + 1);
       setPhase("READY");
     } else {
-      // Transition to Stage 2: Magnitude Comparison task
       setPhase("MAGNITUDE");
     }
   };
@@ -116,9 +113,7 @@ export default function CometCollectorMission({
   const handleMagnitudeAnswer = (pickedLarger: boolean) => {
     onRecordClick?.();
     const isError = !pickedLarger;
-    setMagnitudeError(isError);
 
-    // Compute final telemetry
     const totalLatency = trialResults.reduce((acc, t) => acc + t.latencyMs, 0);
     const correctSubitizing = trialResults.filter((t) => t.count === t.selected).length;
 
@@ -133,32 +128,32 @@ export default function CometCollectorMission({
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-6 bg-cosmic-900 border border-slate-800 rounded-3xl shadow-2xl relative overflow-hidden">
-      {/* Top Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
+    <div className="w-full max-w-2xl mx-auto p-6 sm:p-8 bg-white border-2 border-edu-200 rounded-3xl shadow-card text-edu-900">
+      {/* Header */}
+      <div className="flex items-center justify-between pb-4 border-b border-edu-100 mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-star-gold/20 border border-star-gold/40 flex items-center justify-center text-star-gold font-bold">
+          <div className="w-10 h-10 rounded-2xl bg-edu-amberLight text-edu-amber flex items-center justify-center font-bold text-sm">
             3
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <h3 className="text-base sm:text-lg font-bold text-edu-900 flex items-center gap-2">
               Mission 3: Comet Collector
-              <span className="text-xs font-normal text-star-gold bg-star-gold/10 px-2 py-0.5 rounded-full border border-star-gold/20">
-                Dyscalculia Screener
+              <span className="text-[10px] font-bold text-amber-800 bg-edu-amberLight px-2 py-0.5 rounded-full">
+                Number Sense Screener
               </span>
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-edu-500">
               {phase === "MAGNITUDE"
-                ? "Which spaceship has MORE space crystals?"
+                ? "Which spaceship is carrying MORE star crystals?"
                 : "Watch the cosmic flash for 400ms and count the comets!"}
             </p>
           </div>
         </div>
 
         <div className="text-right">
-          <span className="text-xs font-semibold text-slate-400">Stage</span>
-          <div className="text-sm font-bold text-star-gold">
-            {phase === "MAGNITUDE" ? "Final Comparison" : `${trialIndex + 1} / ${SUBITIZING_TRIALS.length}`}
+          <span className="text-[11px] font-semibold text-edu-400">Stage</span>
+          <div className="text-sm font-extrabold text-edu-amber">
+            {phase === "MAGNITUDE" ? "Final Comparison" : `${trialIndex + 1} of ${SUBITIZING_TRIALS.length}`}
           </div>
         </div>
       </div>
@@ -166,19 +161,19 @@ export default function CometCollectorMission({
       {/* Main Flash Area */}
       {phase !== "MAGNITUDE" ? (
         <div className="space-y-6">
-          <div className="relative mx-auto w-full aspect-[16/9] max-w-lg rounded-2xl bg-cosmic-950 border-2 border-slate-800 shadow-inner flex items-center justify-center overflow-hidden">
+          <div className="relative mx-auto w-full aspect-[16/9] max-w-lg rounded-2xl bg-edu-50 border-2 border-edu-200 shadow-inner flex items-center justify-center overflow-hidden">
             {phase === "READY" && (
               <div className="text-center p-6 space-y-3">
-                <div className="w-12 h-12 rounded-full bg-star-gold/20 border border-star-gold/40 flex items-center justify-center mx-auto text-star-gold animate-pulse">
-                  <Zap className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-edu-amberLight text-edu-amber flex items-center justify-center mx-auto shadow-sm">
+                  <Zap className="w-6 h-6 text-amber-600" />
                 </div>
-                <h4 className="text-base font-bold text-white">Comets incoming!</h4>
-                <p className="text-xs text-slate-400 max-w-xs">
+                <h4 className="text-base font-bold text-edu-900">Comets Incoming!</h4>
+                <p className="text-xs text-edu-600 max-w-xs mx-auto">
                   They will appear for less than a second. Keep your eyes on the screen!
                 </p>
                 <button
                   onClick={startFlash}
-                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-star-gold to-amber-500 text-cosmic-950 text-xs font-black shadow-lg shadow-star-gold/20 hover:opacity-95 transition-all"
+                  className="px-6 py-2.5 rounded-2xl bg-edu-amber hover:bg-amber-400 text-edu-900 text-xs font-bold shadow-soft transition-all"
                 >
                   ⚡ Start Cosmic Flash
                 </button>
@@ -191,9 +186,9 @@ export default function CometCollectorMission({
                   <div
                     key={idx}
                     style={{ top: `${pos.top}%`, left: `${pos.left}%` }}
-                    className="absolute text-3xl animate-ping"
+                    className="absolute text-4xl animate-bounce"
                   >
-                    ☄️
+                    ⭐
                   </div>
                 ))}
               </div>
@@ -201,21 +196,21 @@ export default function CometCollectorMission({
 
             {phase === "INPUT" && (
               <div className="text-center space-y-2">
-                <Timer className="w-6 h-6 text-star-gold mx-auto animate-spin" />
-                <h4 className="text-sm font-bold text-slate-200">How many comets did you spot?</h4>
-                <p className="text-[11px] text-slate-400">Tap your answer below:</p>
+                <Timer className="w-6 h-6 text-edu-primary mx-auto animate-spin" />
+                <h4 className="text-sm font-bold text-edu-900">How many stars did you spot?</h4>
+                <p className="text-xs text-edu-500">Tap your answer below:</p>
               </div>
             )}
           </div>
 
           {/* Number Selector Buttons */}
-          <div className="grid grid-cols-6 gap-2 max-w-lg mx-auto">
+          <div className="grid grid-cols-6 gap-2.5 max-w-lg mx-auto">
             {[1, 2, 3, 4, 5, 6].map((num) => (
               <button
                 key={num}
                 onClick={() => handleSelectNumber(num)}
                 disabled={phase !== "INPUT"}
-                className="py-3 rounded-xl bg-cosmic-850 border border-slate-700 hover:border-star-gold text-lg font-black text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95 hover:bg-slate-800"
+                className="py-3.5 rounded-2xl bg-white border-2 border-edu-200 hover:border-edu-primary text-xl font-black text-edu-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-soft active:scale-95"
               >
                 {num}
               </button>
@@ -226,44 +221,44 @@ export default function CometCollectorMission({
         /* Stage 2: Magnitude Comparison Trial */
         <div className="space-y-6">
           <div className="text-center">
-            <h4 className="text-sm font-bold text-slate-200">
-              Which fleet has <span className="text-star-gold font-extrabold uppercase">MORE</span> energy crystals?
+            <h4 className="text-sm font-bold text-edu-900">
+              Which fleet has <span className="text-edu-primary font-black uppercase">MORE</span> energy crystals?
             </h4>
           </div>
 
           <div className="grid grid-cols-2 gap-4 max-w-lg mx-auto">
-            {/* Left Pod: 3 Crystals */}
+            {/* Left: 3 Crystals */}
             <button
               onClick={() => handleMagnitudeAnswer(false)}
-              className="p-6 rounded-2xl bg-cosmic-950 border-2 border-slate-700 hover:border-rose-400/80 transition-all flex flex-col items-center justify-center gap-3 group active:scale-95"
+              className="p-6 rounded-2xl bg-white border-2 border-edu-200 hover:border-edu-rose transition-all flex flex-col items-center justify-center gap-3 group active:scale-95 shadow-soft"
             >
               <div className="text-3xl">🚀</div>
               <div className="flex gap-1 text-xl">💎 💎 💎</div>
-              <span className="text-xs font-semibold text-slate-400 group-hover:text-white">Fleet Alpha</span>
+              <span className="text-xs font-bold text-edu-600 group-hover:text-edu-900">Fleet Alpha (3)</span>
             </button>
 
-            {/* Right Pod: 7 Crystals (Correct) */}
+            {/* Right: 7 Crystals (Correct) */}
             <button
               onClick={() => handleMagnitudeAnswer(true)}
-              className="p-6 rounded-2xl bg-cosmic-950 border-2 border-slate-700 hover:border-emerald-400/80 transition-all flex flex-col items-center justify-center gap-3 group active:scale-95"
+              className="p-6 rounded-2xl bg-white border-2 border-edu-200 hover:border-edu-emerald transition-all flex flex-col items-center justify-center gap-3 group active:scale-95 shadow-soft"
             >
               <div className="text-3xl">🛸</div>
               <div className="flex flex-wrap justify-center gap-1 text-xl max-w-[120px]">
                 💎 💎 💎 💎 💎 💎 💎
               </div>
-              <span className="text-xs font-semibold text-slate-400 group-hover:text-white">Fleet Omega</span>
+              <span className="text-xs font-bold text-edu-600 group-hover:text-edu-900">Fleet Omega (7)</span>
             </button>
           </div>
         </div>
       )}
 
       {/* Safety Footer */}
-      <div className="flex items-center justify-between gap-4 pt-6 border-t border-slate-800 mt-6 text-xs text-slate-400">
+      <div className="flex items-center justify-between gap-4 pt-6 border-t border-edu-100 mt-6 text-xs text-edu-500">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <ShieldCheck className="w-4 h-4 text-edu-emerald" />
           <span>Calculates canonical 400ms Subitizing Reaction Time (SRT).</span>
         </div>
-        <span className="font-mono text-[11px] text-slate-500">Mission 3 of 3</span>
+        <span className="font-semibold text-edu-400">Mission 3 of 3</span>
       </div>
     </div>
   );

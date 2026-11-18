@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Mic, MicOff, Volume2, Sparkles, CheckCircle2, RotateCcw, ArrowRight, ShieldCheck } from "lucide-react";
+import { Mic, MicOff, Volume2, Sparkles, CheckCircle2, ShieldCheck, ArrowRight } from "lucide-react";
 import { WebAudioSpeechEngine, SpeechAnalysisResult } from "@/lib/audio/webAudioEngine";
 
 interface StimulusItem {
@@ -10,12 +10,13 @@ interface StimulusItem {
   hindi: string;
   phonemes: string;
   icon: string;
+  hint: string;
 }
 
 const STIMULI: StimulusItem[] = [
-  { id: "s1", word: "BAT", hindi: "बैट", phonemes: "/b/ /æ/ /t/", icon: "🦇" },
-  { id: "s2", word: "SUN", hindi: "सूरज", phonemes: "/s/ /ʌ/ /n/", icon: "☀️" },
-  { id: "s3", word: "STAR", hindi: "तारा", phonemes: "/s/ /t/ /ɑː/ /r/", icon: "⭐" },
+  { id: "s1", word: "BAT", hindi: "बैट", phonemes: "/b/ /æ/ /t/", icon: "🦇", hint: "Like a cricket bat or a flying bat!" },
+  { id: "s2", word: "SUN", hindi: "सूरज", phonemes: "/s/ /ʌ/ /n/", icon: "☀️", hint: "The bright star that lights up our day!" },
+  { id: "s3", word: "STAR", hindi: "तारा", phonemes: "/s/ /t/ /ɑː/ /r/", icon: "⭐", hint: "Twinkling high in the night sky!" },
 ];
 
 export interface Mission1Telemetry {
@@ -57,7 +58,6 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
     };
   }, []);
 
-  // Set stimulus render timestamp whenever current card changes
   useEffect(() => {
     setStimulusRenderTime(performance.now());
     setIsListening(false);
@@ -77,12 +77,7 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
 
     for (let i = 0; i < frequencyData.length; i++) {
       const barHeight = (frequencyData[i] / 255) * canvas.height;
-
-      const gradient = ctx.createLinearGradient(0, canvas.height, 0, 0);
-      gradient.addColorStop(0, "#818CF8"); // nebula purple
-      gradient.addColorStop(1, "#38BDF8"); // cyan accent
-
-      ctx.fillStyle = gradient;
+      ctx.fillStyle = currentDb > -38 ? "#4F46E5" : "#94A3B8";
       ctx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
       x += barWidth;
     }
@@ -111,7 +106,6 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
     const updated = [...results, analysis];
     setResults(updated);
 
-    // Advance to next stimulus or complete mission
     if (currentIndex < STIMULI.length - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
@@ -119,7 +113,6 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
     }
   };
 
-  // Graceful fallback for environments with no mic or permission denied
   const handleFallbackTapping = (estimatedLatencyMs: number) => {
     const syntheticResult: SpeechAnalysisResult = {
       vocalOnsetLatencyMs: estimatedLatencyMs,
@@ -163,84 +156,86 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-6 bg-cosmic-900 border border-slate-800 rounded-3xl shadow-2xl relative overflow-hidden">
-      {/* Top Mission Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
+    <div className="w-full max-w-2xl mx-auto p-6 sm:p-8 bg-white border-2 border-edu-200 rounded-3xl shadow-card text-edu-900">
+      {/* Header */}
+      <div className="flex items-center justify-between pb-4 border-b border-edu-100 mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-nebula-purple/20 border border-nebula-purple/40 flex items-center justify-center text-nebula-purple font-bold">
+          <div className="w-10 h-10 rounded-2xl bg-edu-primaryLight text-edu-primary flex items-center justify-center font-bold text-sm">
             1
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <h3 className="text-base sm:text-lg font-bold text-edu-900 flex items-center gap-2">
               Mission 1: Star Echoes
-              <span className="text-xs font-normal text-nebula-cyan bg-nebula-cyan/10 px-2 py-0.5 rounded-full border border-nebula-cyan/20">
-                Dyslexia Screener
+              <span className="text-[10px] font-bold text-edu-primary bg-edu-primaryLight px-2 py-0.5 rounded-full">
+                Reading Voice Screener
               </span>
             </h3>
-            <p className="text-xs text-slate-400">Read the star word aloud when ready. Listen for the echo!</p>
+            <p className="text-xs text-edu-500">Read the star word aloud into your microphone.</p>
           </div>
         </div>
 
         <div className="text-right">
-          <span className="text-xs font-semibold text-slate-400">Card</span>
-          <div className="text-sm font-bold text-star-gold">
-            {currentIndex + 1} / {STIMULI.length}
+          <span className="text-[11px] font-semibold text-edu-400">Card</span>
+          <div className="text-sm font-extrabold text-edu-amber">
+            {currentIndex + 1} of {STIMULI.length}
           </div>
         </div>
       </div>
 
-      {/* Main Stimulus Space Card */}
-      <div className="p-8 my-4 rounded-2xl bg-gradient-to-b from-cosmic-850 to-cosmic-950 border border-slate-700/80 text-center relative shadow-inner">
-        <div className="text-5xl mb-3 animate-bounce">{currentStimulus.icon}</div>
+      {/* Main Stimulus Card */}
+      <div className="p-8 my-4 rounded-2xl bg-edu-50 border-2 border-edu-200 text-center relative">
+        <div className="text-5xl mb-3">{currentStimulus.icon}</div>
 
         <div className="space-y-1 mb-4">
-          <h2 className="text-4xl sm:text-5xl font-black tracking-widest text-white drop-shadow-md">
+          <h2 className="text-4xl sm:text-5xl font-black tracking-widest text-edu-900">
             {currentStimulus.word}
           </h2>
-          <p className="text-lg text-nebula-cyan font-medium">{currentStimulus.hindi}</p>
-          <p className="text-xs text-slate-400 font-mono tracking-wider">{currentStimulus.phonemes}</p>
+          <p className="text-xl font-bold text-edu-primary">{currentStimulus.hindi}</p>
+          <p className="text-xs text-edu-500 font-mono tracking-wider">{currentStimulus.phonemes}</p>
         </div>
 
+        <p className="text-xs text-edu-600 mb-4 font-medium">{currentStimulus.hint}</p>
+
         {/* Real-time Frequency Waveform Visualizer */}
-        <div className="w-full max-w-md mx-auto h-16 bg-cosmic-950/80 rounded-xl border border-slate-800 flex items-center justify-center p-1 relative overflow-hidden">
+        <div className="w-full max-w-md mx-auto h-16 bg-white rounded-xl border border-edu-200 flex items-center justify-center p-1 relative overflow-hidden shadow-inner">
           {isListening ? (
             <canvas ref={canvasRef} width={280} height={56} className="w-full h-full" />
           ) : (
-            <div className="text-xs text-slate-400 flex items-center gap-2">
-              <Volume2 className="w-4 h-4 text-slate-400" />
-              <span>Tap microphone to start speech detection</span>
+            <div className="text-xs text-edu-400 flex items-center gap-2">
+              <Volume2 className="w-4 h-4 text-edu-primary" />
+              <span>Tap the microphone button when you are ready to read</span>
             </div>
           )}
 
           {isListening && (
-            <div className="absolute top-2 right-2 text-[10px] font-mono text-emerald-400 flex items-center gap-1 bg-cosmic-950/90 px-2 py-0.5 rounded border border-emerald-500/30">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              {liveDb > -38 ? "VOICE ONSET" : "LISTENING"}
+            <div className="absolute top-2 right-2 text-[10px] font-bold text-edu-emerald flex items-center gap-1 bg-white px-2 py-0.5 rounded-full border border-edu-emerald/30">
+              <span className="w-2 h-2 rounded-full bg-edu-emerald animate-ping" />
+              {liveDb > -38 ? "VOICE DETECTED" : "LISTENING..."}
             </div>
           )}
         </div>
       </div>
 
-      {/* Mic Permission Warning / Graceful Fallback */}
+      {/* Mic Permission Fallback */}
       {micPermissionDenied && (
-        <div className="p-4 mb-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-left">
+        <div className="p-4 mb-4 rounded-xl bg-amber-50 border border-amber-200 text-left">
           <div className="flex items-start gap-3">
-            <MicOff className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+            <MicOff className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
             <div>
-              <h4 className="text-xs font-semibold text-amber-300">Microphone Access Denied or Unavailable</h4>
-              <p className="text-xs text-slate-400 mt-1">
-                No problem! You can continue using the **Visual Phoneme Tap** fallback below.
+              <h4 className="text-xs font-bold text-amber-900">Microphone Access Needed</h4>
+              <p className="text-xs text-amber-800 mt-1">
+                If your device does not have a microphone or permission was blocked, you can use the touch buttons below to continue:
               </p>
-              <div className="mt-3 flex gap-2">
+              <div className="mt-3 flex flex-wrap gap-2">
                 <button
                   onClick={() => handleFallbackTapping(450)}
-                  className="px-3 py-1.5 rounded-lg bg-nebula-purple text-white text-xs font-medium hover:bg-nebula-purple/90"
+                  className="px-3.5 py-1.5 rounded-xl bg-edu-primary text-white text-xs font-bold hover:bg-edu-primaryHover transition-colors"
                 >
-                  Quick Word Recognition (Normal VOL)
+                  Fluent Reading (Typical VOL)
                 </button>
                 <button
                   onClick={() => handleFallbackTapping(1400)}
-                  className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-medium hover:bg-slate-700"
+                  className="px-3.5 py-1.5 rounded-xl bg-white border border-edu-300 text-edu-700 text-xs font-bold hover:bg-edu-100 transition-colors"
                 >
                   Hesitant Reading (Delayed VOL)
                 </button>
@@ -251,17 +246,17 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
       )}
 
       {/* Controls & Action Buttons */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-800">
-        <div className="flex items-center gap-2 text-xs text-slate-400">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>DPDP Act 2023: Audio is processed in RAM only and never saved.</span>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-edu-100">
+        <div className="flex items-center gap-2 text-xs text-edu-500">
+          <ShieldCheck className="w-4 h-4 text-edu-emerald" />
+          <span>RAM-Only Audio: Voice is analyzed live and never saved.</span>
         </div>
 
         <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
           {!isListening ? (
             <button
               onClick={handleStartRecording}
-              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-nebula-purple to-nebula-cyan text-white text-sm font-bold shadow-lg shadow-nebula-purple/20 hover:opacity-95 transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-edu-primary hover:bg-edu-primaryHover text-white text-sm font-bold shadow-soft transition-all flex items-center justify-center gap-2"
             >
               <Mic className="w-4 h-4" />
               <span>Tap to Read Word</span>
@@ -269,17 +264,17 @@ export default function StarEchoesMission({ onComplete, onSkip }: StarEchoesMiss
           ) : (
             <button
               onClick={handleStopRecording}
-              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm font-bold shadow-lg shadow-rose-600/30 transition-all flex items-center justify-center gap-2 animate-pulse"
+              className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-edu-rose hover:bg-rose-700 text-white text-sm font-bold shadow-soft transition-all flex items-center justify-center gap-2 animate-pulse"
             >
               <CheckCircle2 className="w-4 h-4" />
-              <span>Done Speaking! Next &rarr;</span>
+              <span>Done Reading! Next &rarr;</span>
             </button>
           )}
 
           {onSkip && (
             <button
               onClick={onSkip}
-              className="px-3 py-2 text-xs text-slate-400 hover:text-white transition-colors"
+              className="px-3 py-2 text-xs text-edu-400 hover:text-edu-600 transition-colors"
             >
               Skip
             </button>
