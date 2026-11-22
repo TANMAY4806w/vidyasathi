@@ -2,42 +2,108 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --brand:         #4353FF;
+  --brand-hover:   #3340E0;
+  --surface:       #F7F7F5;
+  --canvas:        #FFFFFF;
+  --ink:           #1A1A2E;
+  --ink-2:         #3D3D56;
+  --ink-3:         #7E7E9A;
+  --border:        #E8E8EF;
+  --radius-card:   16px;
+  --radius-pill:   999px;
 }
+
+/* ── Base Reset & Typography ───────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
-  color: var(--foreground);
-  background-color: var(--background);
+  font-family: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv01", "cv02", "cv03", "cv04", "cv11", "ss01";
+  font-variation-settings: "wght" 400;
+  color: var(--ink);
+  background-color: var(--surface);
   min-height: 100vh;
   margin: 0;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Accessible focus outline */
+/* Inter numeric lining for data tables & metrics */
+.tabular-nums { font-variant-numeric: tabular-nums lining-nums; }
+
+/* ── Focus ─────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid #4f46e5;
+  outline: 2.5px solid var(--brand);
   outline-offset: 2px;
-}
-
-/* Clean educational scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+/* ── Scrollbar (thin, Notion-style) ───────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #D0D0DD;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: #A0A0B8; }
+
+/* ── Utility: Progress bar width via CSS var ─────────────── */
+.progress-bar { width: var(--progress-w, 0%); }
+
+/* ── Utility: Animated gradient shimmer (skeleton) ──────── */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #EFEFED 25%,
+    #E4E4E0 50%,
+    #EFEFED 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+/* ── Component: Professional badge ─────────────────────── */
+@layer components {
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold leading-none;
+  }
+  .badge-brand   { @apply bg-brand-100 text-brand-700; }
+  .badge-success { @apply bg-success-50 text-success-700; }
+  .badge-warn    { @apply bg-warn-50    text-warn-700;    }
+  .badge-danger  { @apply bg-danger-50  text-danger-700;  }
+  .badge-sky     { @apply bg-sky-50     text-sky-700;     }
+
+  /* Cards */
+  .card {
+    @apply bg-canvas rounded-2xl border border-border shadow-card;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2
+           rounded-xl font-semibold text-sm
+           transition-all duration-150 ease-spring
+           focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
+           active:scale-[0.97] select-none;
+  }
+  .btn-primary {
+    @apply btn bg-brand-500 text-white hover:bg-brand-600
+           shadow-soft hover:shadow-elevated;
+  }
+  .btn-secondary {
+    @apply btn bg-canvas text-ink-2 border border-border
+           hover:border-brand-300 hover:text-brand-600;
+  }
+  .btn-ghost {
+    @apply btn text-ink-3 hover:bg-edu-100 hover:text-ink;
+  }
+  .btn-sm { @apply px-3.5 py-2 text-xs; }
+  .btn-md { @apply px-5 py-2.5 text-sm; }
+  .btn-lg { @apply px-6 py-3 text-base; }
 }
