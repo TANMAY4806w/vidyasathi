@@ -200,10 +200,10 @@ export default function DashboardPage() {
                 <button
                   key={tier}
                   onClick={() => setFilterTier(tier)}
-                  className={`px-3 py-1 rounded-xl font-medium transition-colors ${
+                  className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
                     filterTier === tier
-                      ? "bg-brand-500 text-white font-bold shadow-card"
-                      : "bg-white border border-border text-ink-2 hover:bg-surface"
+                      ? "bg-indigo-600 text-white shadow-sm"
+                      : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
                   }`}
                 >
                   {tier === "ALL" ? "All" : tier === "HIGH_ATTENTION_REQUIRED" ? "High" : tier === "MODERATE_WATCHLIST" ? "Watch" : "Typical"}
@@ -277,83 +277,83 @@ export default function DashboardPage() {
             </div>
 
             {/* Percentile Gauges */}
-            <div className="space-y-3.5">
-              <h4 className="text-xs font-bold text-ink-2 uppercase tracking-wider">DSM-5 Standardized Percentiles:</h4>
+            <div className="space-y-4">
+              <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">DSM-5 Standardized Percentiles:</h4>
 
               {/* Dyslexia Bar */}
               <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-ink-2 font-medium">Dyslexia (Speech Vocal Latency)</span>
-                  <strong className="text-ink font-mono">{selectedStudent.indices.dyslexia}th %ile</strong>
+                <div className="flex justify-between text-xs mb-1.5">
+                  <span className="text-slate-600 font-medium">Dyslexia (Speech Vocal Latency)</span>
+                  <strong className="text-slate-900 font-mono font-bold">{selectedStudent.indices.dyslexia}th %ile</strong>
                 </div>
-                <div className="w-full h-2 rounded-full bg-edu-100 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden shadow-inner">
                   <div
                     style={{ width: `${selectedStudent.indices.dyslexia}%` }}
-                    className={`h-full ${selectedStudent.indices.dyslexia > 75 ? "bg-edu-rose" : selectedStudent.indices.dyslexia >= 40 ? "bg-edu-amber" : "bg-success-500"}`}
+                    className={`h-full rounded-full transition-all duration-500 ${selectedStudent.indices.dyslexia > 75 ? "bg-rose-500" : selectedStudent.indices.dyslexia >= 40 ? "bg-amber-400" : "bg-emerald-500"}`}
                   />
                 </div>
               </div>
 
               {/* Dysgraphia Bar */}
               <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-ink-2 font-medium">Dysgraphia (Canvas Kinematic Jitter)</span>
-                  <strong className="text-ink font-mono">{selectedStudent.indices.dysgraphia}th %ile</strong>
+                <div className="flex justify-between text-xs mb-1.5">
+                  <span className="text-slate-600 font-medium">Dysgraphia (Canvas Kinematic Jitter)</span>
+                  <strong className="text-slate-900 font-mono font-bold">{selectedStudent.indices.dysgraphia}th %ile</strong>
                 </div>
-                <div className="w-full h-2 rounded-full bg-edu-100 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden shadow-inner">
                   <div
                     style={{ width: `${selectedStudent.indices.dysgraphia}%` }}
-                    className={`h-full ${selectedStudent.indices.dysgraphia > 75 ? "bg-edu-rose" : selectedStudent.indices.dysgraphia >= 40 ? "bg-edu-amber" : "bg-success-500"}`}
+                    className={`h-full rounded-full transition-all duration-500 ${selectedStudent.indices.dysgraphia > 75 ? "bg-rose-500" : selectedStudent.indices.dysgraphia >= 40 ? "bg-amber-400" : "bg-emerald-500"}`}
                   />
                 </div>
               </div>
 
               {/* Dyscalculia Bar */}
               <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-ink-2 font-medium">Dyscalculia (400ms Subitizing Delay)</span>
-                  <strong className="text-ink font-mono">{selectedStudent.indices.dyscalculia}th %ile</strong>
+                <div className="flex justify-between text-xs mb-1.5">
+                  <span className="text-slate-600 font-medium">Dyscalculia (400ms Subitizing Delay)</span>
+                  <strong className="text-slate-900 font-mono font-bold">{selectedStudent.indices.dyscalculia}th %ile</strong>
                 </div>
-                <div className="w-full h-2 rounded-full bg-edu-100 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden shadow-inner">
                   <div
                     style={{ width: `${selectedStudent.indices.dyscalculia}%` }}
-                    className={`h-full ${selectedStudent.indices.dyscalculia > 75 ? "bg-edu-rose" : selectedStudent.indices.dyscalculia >= 40 ? "bg-edu-amber" : "bg-success-500"}`}
+                    className={`h-full rounded-full transition-all duration-500 ${selectedStudent.indices.dyscalculia > 75 ? "bg-rose-500" : selectedStudent.indices.dyscalculia >= 40 ? "bg-amber-400" : "bg-emerald-500"}`}
                   />
                 </div>
               </div>
 
               {/* ADHD Bar */}
               <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-ink-2 font-medium">ADHD (Reaction Time Variance σ)</span>
-                  <strong className="text-ink font-mono">{selectedStudent.indices.adhd}th %ile</strong>
+                <div className="flex justify-between text-xs mb-1.5">
+                  <span className="text-slate-600 font-medium">ADHD (Reaction Time Variance σ)</span>
+                  <strong className="text-slate-900 font-mono font-bold">{selectedStudent.indices.adhd}th %ile</strong>
                 </div>
-                <div className="w-full h-2 rounded-full bg-edu-100 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden shadow-inner">
                   <div
                     style={{ width: `${selectedStudent.indices.adhd}%` }}
-                    className={`h-full ${selectedStudent.indices.adhd > 75 ? "bg-edu-rose" : selectedStudent.indices.adhd >= 40 ? "bg-edu-amber" : "bg-success-500"}`}
+                    className={`h-full rounded-full transition-all duration-500 ${selectedStudent.indices.adhd > 75 ? "bg-rose-500" : selectedStudent.indices.adhd >= 40 ? "bg-amber-400" : "bg-emerald-500"}`}
                   />
                 </div>
               </div>
             </div>
 
             {/* IEP Action Card */}
-            <div className="p-4 rounded-2xl bg-surface border border-border space-y-3">
+            <div className="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-ink flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-brand-500" />
+                <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-indigo-600" />
                   Gemini 1.5 Flash Bilingual IEP
                 </span>
-                <span className="text-[10px] text-success-700 font-bold bg-white px-2 py-0.5 rounded-full border border-success-500/30">
+                <span className="text-[10px] text-emerald-700 font-bold bg-white px-2 py-0.5 rounded-full border border-emerald-300">
                   NEP 2020
                 </span>
               </div>
-              <p className="text-xs text-ink-2">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Actionable bilingual accommodations, 4-week structured exercises, and review timeline ready for teacher download.
               </p>
               <button
                 onClick={() => setShowIepModal(true)}
-                className="w-full py-2.5 rounded-2xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold transition-all shadow-card flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
               >
                 <FileText className="w-4 h-4" />
                 <span>View Full IEP Report Card</span>
