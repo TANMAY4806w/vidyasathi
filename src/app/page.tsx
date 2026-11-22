@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { VidyaSathiLogo } from "@/components/ui/VidyaSathiLogo";
 import {
   Sparkles,
   Gamepad2,
@@ -23,20 +24,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between gap-4">
 
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-brand-500 text-white flex items-center justify-center shadow-soft shrink-0">
-              <Star className="w-4.5 h-4.5 fill-white" strokeWidth={0} style={{ width: 18, height: 18 }} />
-            </div>
-            <div>
-              <div className="flex items-center gap-2 leading-none">
-                <span className="text-[17px] font-bold tracking-tight text-ink">VidyaSathi</span>
-                <span className="text-xs font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded-full border border-brand-200">
-                  विद्यासाथी
-                </span>
-              </div>
-              <p className="text-[11px] text-ink-3 font-medium mt-0.5">PRASUNEX INNOVATHON 2026 · Team Dynamic Duo</p>
-            </div>
-          </div>
+          <VidyaSathiLogo size="md" subtitle="Inclusive Education OS · Built by Dynamic Duo" />
 
           {/* Nav actions */}
           <div className="flex items-center gap-2 sm:gap-3">

@@ -185,8 +185,8 @@ export default function JuryDemoPage() {
 
   return (
     <div className="min-h-screen bg-edu-50 text-edu-900 p-4 sm:p-8 flex flex-col justify-between max-w-7xl mx-auto selection:bg-edu-primaryLight selection:text-edu-primary">
-      {/* Header */}
-      <header className="bg-white border border-edu-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-soft">
+      {/* Header (Sticky Navbar) */}
+      <header className="sticky top-3 z-50 bg-white/95 backdrop-blur-md border border-edu-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md transition-all">
         <div className="flex items-center gap-3">
           <Link
             href="/"

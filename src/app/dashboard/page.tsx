@@ -148,9 +148,9 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface text-ink p-4 sm:p-8 flex flex-col justify-between max-w-7xl mx-auto">
-      {/* Top Bar */}
-      <header className="bg-canvas border border-border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-card">
+    <div className="min-h-screen bg-surface text-ink p-4 sm:p-8 flex flex-col justify-between max-w-7xl mx-auto print:p-0 print:m-0 print:max-w-none">
+      {/* Top Bar (Sticky Navbar) */}
+      <header className="sticky top-3 z-50 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md transition-all print:hidden">
         <div className="flex items-center gap-3">
           <Link
             href="/"
@@ -185,7 +185,7 @@ export default function DashboardPage() {
       </header>
 
       {/* Main Grid: Roster + Drill-down */}
-      <main className="my-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <main className="my-6 grid grid-cols-1 lg:grid-cols-12 gap-6 print:hidden">
         {/* Left Column: Student Roster (7 Cols) */}
         <section className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
@@ -365,20 +365,27 @@ export default function DashboardPage() {
 
       {/* IEP Modal */}
       {showIepModal && selectedStudent && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 bg-white border border-border rounded-3xl shadow-card space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-border">
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 print:p-0 print:m-0 print:static print:inset-auto print:bg-white print:backdrop-blur-none">
+          <div className="w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 bg-white border border-border rounded-3xl shadow-card space-y-5 print:border print:border-slate-300 print:rounded-2xl print:p-6 print:space-y-3.5 print:shadow-none print:max-h-none print:overflow-visible print:w-full print:max-w-none print-page-fit">
+            
+            {/* Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-border">
               <div>
-                <span className="text-xs font-bold text-brand-500 uppercase tracking-wider">
-                  NEP 2020 Inclusive Education Document
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-brand-500 uppercase tracking-wider">
+                    NEP 2020 Inclusive Education Document
+                  </span>
+                  <span className="hidden print:inline-block text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-300 font-semibold">
+                    PRASUNEX Education OS
+                  </span>
+                </div>
                 <h3 className="text-xl font-bold text-ink mt-0.5">
                   Individualized Education Program: {selectedStudent.name}
                 </h3>
               </div>
 
-              {/* Language Switcher */}
-              <div className="flex items-center gap-2">
+              {/* Language Switcher & Close (Hidden in Print) */}
+              <div className="flex items-center gap-2 print:hidden">
                 <div className="flex items-center bg-edu-100 p-1 rounded-xl text-xs font-bold">
                   <button
                     onClick={() => setIepLanguage("en")}
@@ -396,19 +403,39 @@ export default function DashboardPage() {
 
                 <button
                   onClick={() => setShowIepModal(false)}
-                  className="px-3 py-1.5 rounded-xl bg-edu-100 hover:bg-edu-200 text-xs font-bold text-ink-2"
+                  className="px-3 py-1.5 rounded-xl bg-edu-100 hover:bg-edu-200 text-xs font-bold text-ink-2 cursor-pointer"
                 >
                   ✕ Close
                 </button>
               </div>
             </div>
 
+            {/* Student Metadata Row (Visible on screen and print) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 py-2 px-3.5 bg-surface border border-border rounded-xl text-xs print:bg-slate-50 print:border-slate-300">
+              <div>
+                <span className="text-[10px] text-ink-3 uppercase font-bold block">Student</span>
+                <strong className="text-ink font-bold">{selectedStudent.name}</strong>
+              </div>
+              <div>
+                <span className="text-[10px] text-ink-3 uppercase font-bold block">Class &amp; Age</span>
+                <span className="text-ink-2 font-medium">Class {selectedStudent.grade} ({selectedStudent.age} yrs)</span>
+              </div>
+              <div>
+                <span className="text-[10px] text-ink-3 uppercase font-bold block">Screened Need</span>
+                <span className="text-brand-500 font-bold">{selectedStudent.highestRisk}</span>
+              </div>
+              <div>
+                <span className="text-[10px] text-ink-3 uppercase font-bold block">Date</span>
+                <span className="text-ink-2">{selectedStudent.screenedAt}</span>
+              </div>
+            </div>
+
             {/* Parent Summary */}
-            <div className="p-4 rounded-2xl bg-surface border border-border">
-              <h4 className="text-xs font-bold text-brand-500 uppercase tracking-wider mb-2">
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-surface border border-border print:bg-white print:border-slate-300">
+              <h4 className="text-xs font-bold text-brand-500 uppercase tracking-wider mb-1.5">
                 {iepLanguage === "en" ? "Parent Summary & Strengths" : "माता-पिता के लिए विवरण एवं क्षमताएं"}
               </h4>
-              <p className="text-xs sm:text-sm text-edu-800 leading-relaxed font-medium">
+              <p className="text-xs sm:text-[13px] text-edu-800 leading-relaxed font-medium">
                 {iepLanguage === "en"
                   ? `${selectedStudent.name} demonstrates creative thinking and high visual engagement. Current screening indicates mild-to-moderate needs in phonological decoding and motor stability. With targeted daily reinforcement, rapid academic confidence is expected.`
                   : `${selectedStudent.name} में बहुत अच्छी सीखने की क्षमता और जिज्ञासा है। वर्तमान जांच के अनुसार, पढ़ने की गति और लिखावट के अभ्यास में थोड़ा अतिरिक्त समय और प्रोत्साहन देने की आवश्यकता है। घर और स्कूल के सहयोग से छात्र आसानी से प्रगति करेगा।`}
@@ -417,37 +444,49 @@ export default function DashboardPage() {
 
             {/* Classroom Accommodations (Zero Cost) */}
             <div>
-              <h4 className="text-xs font-bold text-ink uppercase tracking-wider mb-3">
+              <h4 className="text-xs font-bold text-ink uppercase tracking-wider mb-2.5">
                 Teacher Classroom Accommodations (100% Zero-Cost)
               </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div className="p-3.5 rounded-xl bg-surface border border-border">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                <div className="p-3 rounded-xl bg-surface border border-border print:bg-white print:border-slate-300">
                   <strong className="text-brand-500 block mb-1">Reading &amp; Font Support:</strong>
                   <span className="text-ink-2">Use sans-serif fonts with 1.5x line spacing on off-white paper.</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-surface border border-border">
+                <div className="p-3 rounded-xl bg-surface border border-border print:bg-white print:border-slate-300">
                   <strong className="text-brand-500 block mb-1">Examination Flexibility:</strong>
                   <span className="text-ink-2">Grant 15 minutes extra time per hour and allow oral answer checks.</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-surface border border-border">
+                <div className="p-3 rounded-xl bg-surface border border-border print:bg-white print:border-slate-300">
                   <strong className="text-brand-500 block mb-1">Classroom Seating:</strong>
                   <span className="text-ink-2">Position in front rows near teacher to minimize visual distractions.</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-surface border border-border">
+                <div className="p-3 rounded-xl bg-surface border border-border print:bg-white print:border-slate-300">
                   <strong className="text-brand-500 block mb-1">Writing &amp; Motor Support:</strong>
                   <span className="text-ink-2">Allow ergonomic pencil grips and reduce repetitive blackboard copying.</span>
                 </div>
               </div>
             </div>
 
-            {/* Print / Action Buttons */}
-            <div className="flex items-center justify-between pt-4 border-t border-border">
+            {/* Print-only institutional sign-off row */}
+            <div className="hidden print:grid grid-cols-2 gap-4 pt-3 border-t border-slate-300 text-[11px] text-slate-600">
+              <div>
+                <p className="font-semibold text-slate-800">Special Educator Signature: _________________________</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">Complies with NEP 2020 §6 &amp; RPwD Act 2016 Guidelines</p>
+              </div>
+              <div className="text-right">
+                <p className="font-semibold text-slate-800">School Seal / Authorization</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">DPDP Act 2023 RAM-Only Screening Verified</p>
+              </div>
+            </div>
+
+            {/* Print / Action Buttons (Hidden during actual print) */}
+            <div className="flex items-center justify-between pt-3 border-t border-border print:hidden">
               <span className="text-xs text-ink-3 font-medium">
                 PRASUNEX Education OS • Student Profile Document
               </span>
               <button
                 onClick={() => window.print()}
-                className="px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold flex items-center gap-2 shadow-card"
+                className="px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold flex items-center gap-2 shadow-card cursor-pointer transition-all active:scale-95"
               >
                 <Printer className="w-4 h-4" />
                 <span>Print / Save PDF</span>
@@ -458,7 +497,7 @@ export default function DashboardPage() {
       )}
 
       {/* Footer */}
-      <footer className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-3">
+      <footer className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-3 print:hidden">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-success-700" />
           <span>DPDP Act 2023 Compliant • Native Integration with PRASUNEX Education OS</span>

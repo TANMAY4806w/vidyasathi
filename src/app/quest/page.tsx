@@ -71,14 +71,14 @@ export default function QuestPage() {
       onClick={handleRecordClick}
       className="min-h-screen bg-surface text-ink flex flex-col max-w-5xl mx-auto px-4 sm:px-6 py-5 gap-6"
     >
-      {/* ── Quest Header ───────────────────────────────────── */}
-      <header className="bg-canvas border border-border rounded-2xl px-5 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-soft animate-fade-in">
+      {/* ── Quest Header (Sticky Fixed Navbar) ─────────────── */}
+      <header className="sticky top-3 z-50 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl px-5 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md transition-all">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-[13px] font-semibold text-ink-3 hover:text-ink transition-colors"
+          className="inline-flex items-center gap-2 text-[13px] font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-xl transition-colors shrink-0"
         >
           <ArrowLeft className="w-4 h-4" />
-          Exit to Hub
+          <span>Exit to Hub</span>
         </Link>
 
         {/* Step Progress */}
