@@ -436,22 +436,38 @@ export default function JuryDemoPage() {
 
           {/* Generated IEP Card */}
           {iepResult && (
-            <div className="p-6 rounded-3xl bg-white border-2 border-edu-200 shadow-card space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-edu-100">
+            <div className="p-6 rounded-3xl bg-white border-2 border-slate-200 shadow-md space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 gap-2">
                 <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-edu-primary" />
-                  <h4 className="text-sm font-bold text-edu-900">Live IEP Output ({iepResult.engine})</h4>
+                  <FileText className="w-4 h-4 text-indigo-600" />
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">Live IEP Output</h4>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                        {iepResult.engine === "gemini-1.5-flash"
+                          ? "⚡ Gemini 1.5 Flash"
+                          : iepResult.engine === "groq-llama3"
+                          ? "⚡ Groq (Llama 3.3 70B)"
+                          : iepResult.engine === "openrouter"
+                          ? "⚡ OpenRouter Engine"
+                          : "⚡ Calibrated Clinical Engine"}
+                      </span>
+                      <span className="text-[10px] text-slate-500 font-mono">
+                        {iepResult.latencyMs}ms
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex gap-1 text-[11px] bg-edu-100 p-1 rounded-xl">
+                <div className="flex gap-1 text-[11px] bg-slate-100 p-1 rounded-xl">
                   <button
                     onClick={() => setIepLang("en")}
-                    className={`px-2.5 py-0.5 rounded-lg font-bold transition-colors ${iepLang === "en" ? "bg-white text-edu-primary shadow-soft" : "text-edu-600"}`}
+                    className={`px-3 py-1 rounded-lg font-bold transition-all ${iepLang === "en" ? "bg-white text-indigo-700 shadow-sm" : "text-slate-600"}`}
                   >
                     English
                   </button>
                   <button
                     onClick={() => setIepLang("hi")}
-                    className={`px-2.5 py-0.5 rounded-lg font-bold transition-colors ${iepLang === "hi" ? "bg-white text-edu-primary shadow-soft" : "text-edu-600"}`}
+                    className={`px-3 py-1 rounded-lg font-bold transition-all ${iepLang === "hi" ? "bg-white text-indigo-700 shadow-sm" : "text-slate-600"}`}
                   >
                     हिंदी
                   </button>
@@ -459,7 +475,7 @@ export default function JuryDemoPage() {
               </div>
 
               {/* Parent Summary */}
-              <div className="p-3.5 rounded-2xl bg-edu-50 border border-edu-200 text-xs text-edu-800 leading-relaxed font-medium">
+              <div className="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100 text-xs text-slate-800 leading-relaxed font-medium">
                 {iepLang === "en"
                   ? iepResult.iepPlan.parentSummary.english
                   : iepResult.iepPlan.parentSummary.hindi}
@@ -467,15 +483,15 @@ export default function JuryDemoPage() {
 
               {/* Classroom Accommodations */}
               <div className="space-y-1.5 text-xs">
-                <span className="text-[11px] font-bold text-edu-600 uppercase tracking-wider">
+                <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
                   Teacher Accommodations (Zero Cost):
                 </span>
                 {iepResult.iepPlan.classroomAccommodations.map((acc: any, i: number) => (
-                  <div key={i} className="p-2.5 rounded-xl bg-edu-50 border border-edu-200 flex items-start gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-edu-emerald shrink-0 mt-0.5" />
+                  <div key={i} className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                     <div>
-                      <strong className="text-edu-900 text-xs">{acc.area}: </strong>
-                      <span className="text-edu-700 text-xs">{acc.action}</span>
+                      <strong className="text-slate-900 text-xs">{acc.area}: </strong>
+                      <span className="text-slate-700 text-xs">{acc.action}</span>
                     </div>
                   </div>
                 ))}

@@ -51,7 +51,7 @@ export class GeminiCopilot {
    * Generates a structured bilingual IEP plan.
    */
   static async generate(input: IEPGenerationInput): Promise<{
-    source: "gemini-1.5-flash" | "groq-llama3" | "calibrated-clinical-engine";
+    source: "gemini-1.5-flash" | "groq-llama3" | "openrouter" | "calibrated-clinical-engine";
     latencyMs: number;
     iep: IEPDocument;
   }> {
@@ -126,11 +126,49 @@ export class GeminiCopilot {
           }
         }
       } catch (err) {
-        console.warn("Groq failover call failed:", err);
+        console.warn("Groq failover call failed, trying OpenRouter:", err);
       }
     }
 
-    // 3. Calibrated Deterministic Synthesis Engine (Zero-Crash Guarantee)
+    // 3. Try OpenRouter multi-model router failover if key is configured
+    const openrouterKey = process.env.OPENROUTER_API_KEY;
+    if (openrouterKey) {
+      try {
+        const prompt = this.buildPrompt(input);
+        const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${openrouterKey}`,
+            "HTTP-Referer": "https://vidyasathi.vercel.app",
+            "X-Title": "VidyaSathi PRASUNEX Education OS",
+          },
+          body: JSON.stringify({
+            model: "meta-llama/llama-3.3-70b-instruct",
+            messages: [{ role: "user", content: prompt }],
+            response_format: { type: "json_object" },
+            temperature: 0.2,
+          }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const content = data.choices?.[0]?.message?.content;
+          if (content) {
+            const parsed: IEPDocument = JSON.parse(content);
+            return {
+              source: "openrouter",
+              latencyMs: Math.round(performance.now() - startTime),
+              iep: parsed,
+            };
+          }
+        }
+      } catch (err) {
+        console.warn("OpenRouter failover call failed:", err);
+      }
+    }
+
+    // 4. Calibrated Deterministic Synthesis Engine (Zero-Crash Guarantee)
     const calibratedIEP = this.synthesizeCalibratedIEP(input);
     return {
       source: "calibrated-clinical-engine",
