@@ -1,6 +1,7 @@
 # VidyaSathi (विद्यासाथी) — Features Specification
 
 > **Engineering Specifications for Round 3 MVP Prototype**  
+> **Live Prototype:** [https://vidyasathi-eight.vercel.app/](https://vidyasathi-eight.vercel.app/)  
 > **Architecture Principle:** Each major feature is encapsulated as an independent, modular component with clear contracts and failure fallbacks.
 
 ---

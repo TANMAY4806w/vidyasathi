@@ -1,79 +1,150 @@
 # VidyaSathi (विद्यासाथी)
 
-> **15-Minute Gamified Multimodal AI Early Screening Engine for Specific Learning Disabilities & Automated IEP Copilot**  
-> Built for **PRASUNEX INNOVATHON 2026** — Round 3 Prototype Development  
+> **15-Minute Gamified Multimodal AI Early Screening Engine for Specific Learning Disabilities & Automated Bilingual IEP Copilot**  
+> Turnkey Inclusive Education Module for **PRASUNEX Education OS**  
+> Built for **PRASUNEX INNOVATHON 2026** — Round 3 Prototype Development & Demonstration  
 > **Team:** Dynamic Duo (*Tanmay Patil & Rajat Gupta*)
 
----
-
-## Overview
-
-VidyaSathi addresses the critical gap in early childhood education where millions of children with Specific Learning Disabilities (Dyslexia, Dysgraphia, Dyscalculia, and ADHD) remain undiagnosed due to inaccessible, high-cost psychological testing ($100+).
-
-VidyaSathi transforms early screening into a 15-minute, child-friendly space exploration quest that runs directly in any modern web browser on low-cost devices at **$0.00 cloud compute cost**.
-
----
-
-## Key Modules & Features
-
-1. **Star Echoes (Dyslexia Screener):** Evaluates vocal onset latency and speech pause intervals against visual stimuli using the in-browser Web Audio API.
-2. **Constellation Tracing (Dysgraphia Screener):** Captures high-frequency pointer kinematics on an HTML5 canvas to detect stroke tremor, micro-jitter, and letter reversals.
-3. **Comet Collector (Dyscalculia Screener):** 400ms flash subitizing exercises measuring instantaneous numerical quantity perception versus slow counting.
-4. **Galactic Radar (ADHD Behavioral Focus Metric):** Passive telemetry tracking reaction time variance, hesitation pauses, and impulsive double-taps.
-5. **Automated Bilingual IEP Copilot:** Powered by Google AI Studio's Gemini 1.5 Flash, generating actionable Individualized Education Programs aligned with NEP 2020 in English and Hindi in under 3 seconds.
-6. **PRASUNEX Education OS Bridge:** Simulated webhook dispatcher streaming real-time diagnostic JSON payloads to institutional ERPs.
-7. **Jury Fast-Pass Route (`/demo?jury=true`):** 30-second evaluation mode pre-loaded with sample student profiles for rapid hackathon jury review.
+[![Deployment Status](https://img.shields.io/badge/Deployment-Live%20on%20Vercel-success?style=for-the-badge&logo=vercel)](https://vidyasathi-eight.vercel.app/)
+[![Live Prototype](https://img.shields.io/badge/Live%20App-vidyasathi--eight.vercel.app-4F46E5?style=for-the-badge)](https://vidyasathi-eight.vercel.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-TANMAY4806w%2Fvidyasathi-181717?style=for-the-badge&logo=github)](https://github.com/TANMAY4806w/vidyasathi)
+[![Next.js 14](https://img.shields.io/badge/Next.js-14.2%20App%20Router-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.4-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS%203.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Compliance](https://img.shields.io/badge/Compliance-NEP%202020%20%7C%20DPDP%20Act%202023-10B981?style=for-the-badge)](https://www.education.gov.in/nep)
 
 ---
 
-## Technical Architecture
+## 🌐 Live Prototype & Quick Links
 
-* **Frontend:** Next.js 14 (App Router), React, TypeScript, Tailwind CSS, Lucide Icons, Framer Motion.
-* **Client-Side Edge Inference:** Web Audio API and HTML5 PointerEvent kinematics running in Web Workers.
-* **Serverless Backend:** Next.js Route Handlers deployed on Vercel.
-* **Generative AI:** Google AI Studio (Gemini 1.5 Flash) with Groq Cloud (Llama-3.3-70B) fallback.
-* **Database & Storage:** Supabase PostgreSQL (Free Tier with Row Level Security).
-* **Data Privacy:** Full DPDP Act 2023 compliance. No raw audio or handwriting images leave the browser; only numerical telemetry vectors are transmitted.
+| Destination | Live URL | Target Audience / Purpose |
+| :--- | :--- | :--- |
+| **🚀 Production Web App** | [**vidyasathi-eight.vercel.app**](https://vidyasathi-eight.vercel.app/) | Main Entrypoint & Landing Page |
+| **⚡ 30-Second Jury Fast-Pass** | [**vidyasathi-eight.vercel.app/demo**](https://vidyasathi-eight.vercel.app/demo) | **Evaluator Console:** 3-step rapid scoring, Gemini IEP & ERP webhook |
+| **👩‍🏫 Teacher Diagnostic Hub** | [**vidyasathi-eight.vercel.app/dashboard**](https://vidyasathi-eight.vercel.app/dashboard) | Classroom Roster, DSM-5 Percentile Gauges & 1-Page Printable IEP |
+| **🎮 Student Space Quest** | [**vidyasathi-eight.vercel.app/quest**](https://vidyasathi-eight.vercel.app/quest) | 15-Minute Gamified Multi-Modal In-Browser Screening Assessment |
 
 ---
 
-## Project Structure
+## 💡 Executive Summary & Problem Statement
+
+In India, an estimated **15% to 20% of elementary school students (Classes 1–8)** experience neurodevelopmental learning variations, including **Dyslexia, Dysgraphia, Dyscalculia, and ADHD**. 
+
+### The Problem in Indian Schools:
+1. **Late Diagnosis:** Most children are flagged only in Class 6–8 after severe academic trauma and repeated failing grades.
+2. **Prohibitive Cost:** Formal clinical psycho-educational evaluations cost ₹5,000–₹15,000 per child, making diagnosis impossible for 90%+ of Indian households.
+3. **Severe Shortage of Special Educators:** India has a ratio of over 1 special educator per 2,000 children.
+4. **Data Privacy Barriers:** Storing raw audio recordings or handwriting samples of minors violates **Section 9 of the Digital Personal Data Protection (DPDP) Act 2023**.
+
+### The VidyaSathi Solution:
+VidyaSathi transforms diagnostic screening into a **15-minute, low-stress space adventure quest**. It captures high-frequency behavioral and acoustic biomarkers directly in browser RAM, calculates normalized DSM-5 percentiles, and synthesizes a **legally-compliant, bilingual Individualized Education Program (IEP)** with zero-cost classroom accommodations in under 3 seconds at **$0.00 cloud compute cost**.
+
+---
+
+## 🛠️ Implemented Features & Technical Architecture
 
 ```
-vidyasathi/
-├── docs/
-│   ├── ARCHITECTURE.md          # Full C4 system architecture and zero-cost design
-│   ├── FEATURES_SPECIFICATION.md# Detailed technical specs for each screening module
-│   ├── API_SPECIFICATION.md     # Route handler contracts and JSON schemas
-│   └── CONTRIBUTING.md          # Engineering standards and workflow
-├── src/                         # Next.js 14 source code (scaffolded in Phase 1)
-├── public/                      # Static assets and web worker scripts
-├── README.md                    # Project documentation
-└── .gitignore                   # Version control ignore rules
+                                  VIDYASATHI ARCHITECTURE
+                                  
+     [ STUDENT CLIENT (Browser RAM Only) ]
+     ┌──────────────────────────────────────────────────────────────┐
+     │ 1. Star Echoes      ──► Web Audio API (Vocal Onset Latency)  │
+     │ 2. Constellations   ──► PointerEvent Kinematics (Jitter)     │
+     │ 3. Comet Collector  ──► 400ms Subitizing Engine              │
+     │ 4. Passive Telemetry──► Reaction Time Variance (ADHD)        │
+     └──────────────────────────────┬───────────────────────────────┘
+                                    │ Anonymized Numerical Vectors Only (<50KB)
+                                    ▼
+     [ SERVERLESS BACKEND (Next.js 14 on Vercel) ]
+     ┌──────────────────────────────────────────────────────────────┐
+     │ • POST /api/screen  ──► DSM-5 Composite Percentile Scorer    │
+     │ • POST /api/iep     ──► 4-Tier Resilient AI Copilot Engine   │
+     │ • POST /api/speech  ──► AssemblyAI Acoustic Phoneme Analyzer │
+     │ • POST /api/sync    ──► PRASUNEX ERP Webhook Dispatcher      │
+     └──────────────────────────────┬───────────────────────────────┘
+                                    │
+                                    ▼
+     [ 4-TIER AI LLM COPILOT ENGINE ]
+     ┌──────────────────────────────────────────────────────────────┐
+     │ Tier 1: Google Gemini 1.5 Flash (Bilingual Structured JSON)  │
+     │    └── (Fallback) ──► Tier 2: Groq Cloud (Llama 3.3 70B)     │
+     │         └── (Fallback) ──► Tier 3: OpenRouter Multi-Model    │
+     │              └── (Fallback) ──► Tier 4: Clinical Engine      │
+     └──────────────────────────────────────────────────────────────┘
 ```
+
+### 1. Multi-Modal Screening Engine
+* **Dyslexia Screener (`Star Echoes`):** Uses the browser's `AudioContext` and `AnalyserNode` to compute **Vocal Onset Latency (VOL)**—the exact millisecond delta between visual word presentation and vocal burst—detecting phonological decoding hesitations (>250ms).
+* **Dysgraphia Screener (`Constellation Tracing`):** HTML5 Canvas captures high-frequency `PointerEvents` at 60 FPS, calculating kinematic micro-jitter, velocity variance, stroke pen-lifts, and character reversal tendencies.
+* **Dyscalculia Screener (`Comet Collector`):** 400ms visual flash tests measuring instant number sense (Subitizing) versus serial counting fallback.
+* **ADHD Focus Metric:** Passively monitors reaction time variance ($\sigma$), impulsive pre-stimulus tapping (<150ms), and attention dwell.
+
+### 2. Automated Bilingual IEP Copilot (NEP 2020 Aligned)
+* Synthesizes actionable, destigmatized educational accommodations in **English and Hindi**.
+* Features **100% Zero-Cost Classroom Accommodations**: 1.5x sans-serif font line spacing, extra 15-minute exam flexibility, ergonomic grip adjustments, and distraction-free front-row seating.
+* **Single-Page Institutional PDF:** Formatted with student demographic metadata and official Special Educator signature / School Seal authorization blocks.
+
+### 3. PRASUNEX Education OS Integration
+* RESTful webhook dispatching signed payloads (`HMAC-SHA256`) to institutional school databases and ERP student profiles.
 
 ---
 
-## Getting Started
+## 🔒 Data Privacy & DPDP Act 2023 Compliance
+
+VidyaSathi was engineered from day one to comply with **Section 9 of the Digital Personal Data Protection (DPDP) Act 2023** (Processing of personal data of children):
+* **Zero Audio Uploads:** Microphones stream strictly into volatile client-side audio buffers in RAM. No voice recording `.wav` or `.mp3` files are saved or uploaded to the cloud.
+* **Zero Handwriting Uploads:** Canvas strokes are converted to mathematical vectors (velocity, acceleration, jitter score) and discarded.
+* **Anonymized Telemetry:** The server only receives anonymous numerical metric payloads (e.g. `{ volMs: 1420, jitter: 0.78 }`).
+
+---
+
+## ⚖️ Limitations & Guardrails
+
+* **Screening vs. Formal Diagnosis:** VidyaSathi is an **early screening & triage instrument**, not a diagnostic replacement for licensed child neuropsychiatrists. It produces a clinical watchlist to guide educators and parents.
+* **Microphone Hardware Sensitivity:** Background classroom noise in rural schools can affect vocal threshold gating; an on-screen visual calibration meter is implemented to mitigate acoustic noise.
+* **Touchscreen vs. Mouse Kinematics:** Fine-motor stroke tremor metrics are highest on capacitive touchscreens/styluses; mouse inputs apply a normalized calibration offset.
+
+---
+
+## 🚀 Future Development Roadmap
+
+1. **Multilingual Expansion for Bharat:** Extend IEP generation and stimulus cards to **Tamil, Telugu, Kannada, Marathi, Bengali, and Gujarati**.
+2. **Vision Transformer (ViT) Handwriting OCR:** On-device WebAssembly model for scanning physical notebook pages directly via webcam.
+3. **Continuous Classroom Gamification:** Adapting quests into weekly 2-minute micro-games for longitudinal progress monitoring.
+4. **Universal State Board SIS Integration:** Native connectors for state education portals (e.g., DIKSHA, UDISE+).
+
+---
+
+## 💻 Local Development Setup
 
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/TANMAY4806w/vidyasathi.git
 
-# Enter the project directory
+# 2. Enter directory
 cd vidyasathi
 
-# Install dependencies
+# 3. Install dependencies
 npm install
 
-# Start the local development server
+# 4. Copy environment configuration
+cp .env.example .env.local
+# (Populate your Gemini, Groq, OpenRouter, and AssemblyAI keys)
+
+# 5. Run development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to experience the application.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
-## Team Dynamic Duo
-* **Tanmay Patil** — Architecture, Core Next.js PWA, Edge AI & Gemini Integration
-* **Rajat Gupta** — UI/UX Gamification, Test Scenarios & Demonstration Quality
+## 👥 Team Dynamic Duo
+
+Built with precision and passion for **PRASUNEX INNOVATHON 2026**:
+* **Tanmay Patil** (`@TANMAY4806w`) — Architecture, Next.js Fullstack Engine, Edge AI Audio/Kinematics & Multi-LLM Copilot
+* **Rajat Gupta** — UI/UX Accessibility, NEP 2020 Clinical Schemas, Validation & Evaluation Telemetry
+
+---
+
+*VidyaSathi (विद्यासाथी) — Every child learns differently. Understand them early.*

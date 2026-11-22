@@ -1,7 +1,7 @@
 # VidyaSathi (विद्यासाथी) — API Specification
 
 > **Base URL (Local):** `http://localhost:3000/api`  
-> **Base URL (Production):** `https://vidyasathi.vercel.app/api`  
+> **Base URL (Production):** `https://vidyasathi-eight.vercel.app/api`  
 > **Protocols:** HTTPS, REST, Server-Sent Events / JSON  
 
 ---

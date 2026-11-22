@@ -2,7 +2,8 @@
 
 > **Turnkey AI Screening & IEP Module for PRASUNEX Education OS**  
 > **Team:** Dynamic Duo (*Tanmay Patil & Rajat Gupta*)  
-> **Target:** PRASUNEX INNOVATHON 2026 — Round 3 Prototype
+> **Target:** PRASUNEX INNOVATHON 2026 — Round 3 Prototype  
+> **Live Prototype:** [https://vidyasathi-eight.vercel.app/](https://vidyasathi-eight.vercel.app/)
 
 ---
 
