@@ -267,7 +267,7 @@ export default function DashboardPage() {
 
         {/* Right Column: Diagnostic Inspection & IEP Action Plan (5 Cols) */}
         {selectedStudent && (
-          <section className="lg:col-span-5 p-6 rounded-3xl bg-white border-2 border-border shadow-card space-y-6">
+          <section className="lg:col-span-5 p-6 rounded-3xl bg-white border-2 border-border shadow-card space-y-6 sticky top-20 self-start transition-all">
             <div className="flex items-center justify-between pb-4 border-b border-border">
               <div>
                 <span className="text-[10px] text-ink-3 uppercase tracking-wider font-bold">Diagnostic Profile</span>
@@ -427,6 +427,35 @@ export default function DashboardPage() {
               <div>
                 <span className="text-[10px] text-ink-3 uppercase font-bold block">Date</span>
                 <span className="text-ink-2">{selectedStudent.screenedAt}</span>
+              </div>
+            </div>
+
+            {/* DSM-5 Clinical Screening Telemetry (Screen & Print) */}
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs print:bg-slate-50 print:border-slate-300">
+              <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider block mb-1.5">
+                DSM-5 Standardized Screening Percentiles (Multi-Modal Telemetry)
+              </span>
+              <div className="grid grid-cols-4 gap-2 text-center">
+                <div className="p-2 rounded-lg bg-white border border-slate-200">
+                  <div className="text-[10px] text-slate-500 font-medium">Dyslexia</div>
+                  <div className="text-sm font-bold text-slate-900 font-mono">{selectedStudent.indices.dyslexia}th %ile</div>
+                  <div className="text-[9px] text-slate-400">Speech Latency</div>
+                </div>
+                <div className="p-2 rounded-lg bg-white border border-slate-200">
+                  <div className="text-[10px] text-slate-500 font-medium">Dysgraphia</div>
+                  <div className="text-sm font-bold text-slate-900 font-mono">{selectedStudent.indices.dysgraphia}th %ile</div>
+                  <div className="text-[9px] text-slate-400">Kinematic Jitter</div>
+                </div>
+                <div className="p-2 rounded-lg bg-white border border-slate-200">
+                  <div className="text-[10px] text-slate-500 font-medium">Dyscalculia</div>
+                  <div className="text-sm font-bold text-slate-900 font-mono">{selectedStudent.indices.dyscalculia}th %ile</div>
+                  <div className="text-[9px] text-slate-400">400ms Subitizing</div>
+                </div>
+                <div className="p-2 rounded-lg bg-white border border-slate-200">
+                  <div className="text-[10px] text-slate-500 font-medium">ADHD Focus</div>
+                  <div className="text-sm font-bold text-slate-900 font-mono">{selectedStudent.indices.adhd}th %ile</div>
+                  <div className="text-[9px] text-slate-400">Reaction Variance</div>
+                </div>
               </div>
             </div>
 
